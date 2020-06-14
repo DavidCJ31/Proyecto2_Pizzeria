@@ -1,4 +1,4 @@
-<%@page import="clases.usuario"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <nav class="navbar justify-content-between">
