@@ -5,6 +5,7 @@
  */
 package coneccion;
 
+import clases.Ingrediente;
 import clases.Pizza;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,8 +30,10 @@ public class DaoRelacionPizzaOrden {
                 for(int i = 0; i < r.size(); i++){
                     Pizza o = r.get(i);
                     Pizza p = DaoPizza.obtenerPizza(String.valueOf(o.getPizzaID()), cnx);
+                    ArrayList<Ingrediente> ad = DaoAdicionales.obtenerIngredienteAdicionales(String.valueOf(p.getPizzaID()), id, cnx);
                     o.setNombre(p.getNombre());
                     o.setTamanno(p.getTamanno());
+                    p.getListaIngredientes().addAll(ad);
                     o.setListaIngredientes(p.getListaIngredientes());
                     o.setPrecio(p.getPrecio());
                     o.setTamanno(p.getTamanno());

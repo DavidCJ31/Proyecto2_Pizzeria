@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,7 +9,9 @@
     </head>
 
     <body>
-<%response.setHeader("cache-control", "no_cache, no-store, must-revalidate");%>
+        <%@include file="/Vistas/popUpRegistrarUsuario.jsp" %>
+        <%response.setHeader("cache-control", "no_cache, no-store, must-revalidate");%>
+            
         <div class="row" id="log">
             <div class="col-md-12" >
                 <div class="login-dark" id="logBanco" >
@@ -20,7 +22,11 @@
                         <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password" value="admin" /></div>
                         <div  class="form-group">
                             <button class="btn btn-warning btn-block" type="submit">Log In</button>
-                        <div class="dropdown show" id="log">
+                        </div>
+                        <div class="form-group">
+                            <button data-toggle="modal"   type="button" data-target="#registrarUser"  class="btn btn-warning btn-block" >Registrarse</button>
+                        </div>
+                        <div class="dropdown show" id="log" style="margin: 5%">
                             <select class="btn btn-warning dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="rol">
                                 <option class="dropdown-item">Cliente</option>
                                 <option class="dropdown-item">Administrador</option>
@@ -30,6 +36,5 @@
                 </div>
             </div>
         </div>
-    </div>
-</body> 
+    </body> 
 </html>
