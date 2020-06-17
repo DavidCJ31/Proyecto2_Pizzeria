@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Usuario {
 
-    public Usuario(String id, String clave_acceso, String tipo, ArrayList<Orden> listaOrdenes, String apellido_1, String apellido_2, String direccion, String telefono) {
+    public Usuario(String id, String clave_acceso, String tipo, ArrayList<Orden> listaOrdenes, String apellido_1, String apellido_2, String direccion, String telefono, String nombre) {
         this.id = id;
         this.clave_acceso = clave_acceso;
         this.tipo = tipo;
@@ -14,17 +14,7 @@ public class Usuario {
         this.apellido_2 = apellido_2;
         this.direccion = direccion;
         this.telefono = telefono;
-    }
-    
-     public Usuario() {
-        this.id = "";
-        this.clave_acceso = "";
-        this.tipo = "";
-        this.listaOrdenes = new ArrayList<>();
-        this.apellido_1 = "";
-        this.apellido_2 = "";
-        this.direccion = "";
-        this.telefono = "";
+        this.nombre = nombre;
     }
 
     public String getId() {
@@ -90,6 +80,30 @@ public class Usuario {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+   
+    
+     public Usuario() {
+        this.id = "";
+        this.clave_acceso = "";
+        this.tipo = "";
+        this.listaOrdenes = new ArrayList<>();
+        this.apellido_1 = "";
+        this.apellido_2 = "";
+        this.direccion = "";
+        this.telefono = "";
+        this.nombre = "";
+    }
+
+   
     private String id;
     private String clave_acceso;
     private String tipo;
@@ -98,5 +112,6 @@ public class Usuario {
     private String apellido_2;
     private String direccion;
     private String telefono;
+    private String nombre;
     
 }

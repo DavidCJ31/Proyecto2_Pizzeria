@@ -23,7 +23,7 @@ public enum IMEC_Usuario {
     LISTARPRODUCTOORDEN("SELECT orden, cantidad, producto FROM relacion_producto_orden WHERE orden=?; "),
     LISTARINGREDIENTESPIZZA("SELECT pizza, ingrediente FROM relacion_pizza_ingredientes WHERE pizza=?; "),
      LISTARINGREDIENTESADICIONALES("SELECT pizza, ingrediente, orden FROM adicionales WHERE pizza=? AND orden = ?; "),
-    INSERTARUSUARIO("INSERT INTO usuario VALUES(?,?,?,?);");
+    INSERTARUSUARIO("INSERT INTO usuario(id, tipo, password, nombre, apellido1, apellido2, direccion, telefono) VALUES(?,?,?,?,?,?,?,?); ");
 
     IMEC_Usuario(String comando) {
         this.comando = comando;

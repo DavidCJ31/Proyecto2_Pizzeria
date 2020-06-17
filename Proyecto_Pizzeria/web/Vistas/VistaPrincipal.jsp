@@ -15,7 +15,7 @@
         <div class="row" id="log">
             <div class="col-md-12" >
                 <div class="login-dark" id="logBanco" >
-                    <form method="post" action="Vistas/Menu.jsp" >
+                    <form method="post" action="logIn" >
                         <h2 class="sr-only" style=" " >Login Form</h2>
                         <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
                         <div class="form-group"><input class="form-control" type="cedúla" name="cedula" placeholder="Cédula" value="123" /></div>

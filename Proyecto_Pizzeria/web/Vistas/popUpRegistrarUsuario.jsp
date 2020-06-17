@@ -5,7 +5,7 @@
 --%>
 
 <div class="container container-fluid" id="containerCrearEncuesta">
-    <form action="" method="post">
+    <form action="Regisistrar" method="post">
         <div class="modal fade" id="registrarUser" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -100,7 +100,7 @@
                     </div>
                     <div class="modal-footer">
 
-                        <button  class="btn btn-warning" id="ButtonCrearEncuesta" onclick="espaciosEnBlanco()">Registrar</button>
+                        <button  class="btn btn-warning" id="ButtonCrearEncuesta" type="submit" onclick="espaciosEnBlanco()">Registrar</button>
 
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <div id="cargando" style="visibility: hidden" class="spinner-grow text-danger" role="status">
