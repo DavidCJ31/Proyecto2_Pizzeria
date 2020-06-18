@@ -28,7 +28,6 @@ public class DaoPizza {
                 if (rs.next()) {
                     r = (new Pizza(
                             rs.getString("nombre"),
-                            rs.getString("ID"),
                             rs.getInt("precio"),
                             new ArrayList<>(),
                             0,
@@ -52,7 +51,6 @@ public class DaoPizza {
                     Pizza r = new Pizza();
                     r = (new Pizza(
                             rs.getString("nombre"),
-                            rs.getString("ID"),
                             rs.getInt("precio"),
                             new ArrayList<>(),
                             0,
@@ -77,8 +75,7 @@ public class DaoPizza {
             stm.clearParameters();
             stm.setString(1, String.valueOf(pizza.getPizzaID()));
             stm.setString(2, String.valueOf(pizza.getNombre()));
-            stm.setString(3, String.valueOf(pizza.getTamanno()));
-            stm.setString(4, String.valueOf(pizza.getPrecio()));
+            stm.setString(3, String.valueOf(pizza.getPrecio()));
             stm.executeUpdate();
             for(Ingrediente i: pizza.getListaIngredientes()){
                 DaoRelacionPizzaIngrediente.agregarIngrediente( String.valueOf(pizza.getPizzaID()), i, cnx);

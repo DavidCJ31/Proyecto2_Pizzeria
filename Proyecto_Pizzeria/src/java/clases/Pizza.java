@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 public class Pizza {
 
-    public Pizza(String nombre, String tamanno, int precio, ArrayList<Ingrediente> listaIngredientes, int cantidad, int pizzaID) {
+    public Pizza(String nombre, int precio, ArrayList<Ingrediente> listaIngredientes, int cantidad, int pizzaID) {
         this.nombre = nombre;
-        this.tamanno = tamanno;
+        this.tamanno = "";
         this.precio = precio;
         this.listaIngredientes = listaIngredientes;
         this.cantidad = cantidad;
