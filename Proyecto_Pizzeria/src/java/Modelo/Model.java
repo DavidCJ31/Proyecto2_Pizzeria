@@ -63,8 +63,13 @@ public class Model {
     }
     public static ArrayList<Pizza> ObtenerListaPizzas(){
         return DaoPizza.obtenerListaPizzas(conn);
-    }public static ArrayList<Ingrediente> ObtenerListaIngredientes(){
+    }
+    public static ArrayList<Ingrediente> ObtenerListaIngredientes(){
         return DaoIngrediente.obtenerListaIngredientes(conn);
+    }
+    
+    public static boolean AgregarPizza(Pizza pizza){
+        return DaoPizza.agregarPizza(pizza, conn);
     }
     
 }

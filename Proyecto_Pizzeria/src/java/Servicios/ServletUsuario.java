@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author metal
  */
-@WebServlet(name = "ServletUsuario", urlPatterns = {"/logIn", "/Regisistrar"})
+@WebServlet(name = "ServletUsuario", urlPatterns = {"/logIn", "/Regisistrar", "/CrearPizza"})
 public class ServletUsuario extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -38,6 +38,9 @@ public class ServletUsuario extends HttpServlet {
         if (request.getServletPath().equals("/Regisistrar")) {
             this.Regisistrar(request, response);
         }
+        if (request.getServletPath().equals("/CrearPizza")) {
+            this.AgregarPizza(request, response);
+        }
     }
 
     protected void logIn(HttpServletRequest request,
@@ -47,19 +50,19 @@ public class ServletUsuario extends HttpServlet {
         String id = request.getParameter("cedula");
         String rol = request.getParameter("rol");
         Usuario us = Model.instance().ObtenerUsuario(clave, id);
-        if(us.getTipo().equals(rol)){
+        if (us.getTipo().equals(rol)) {
             request.getSession(true).setAttribute("Usuario", us);
             ArrayList<Pizza> listaPizzas = Model.instance().ObtenerListaPizzas();
             request.getSession().setAttribute("listaPizzas", listaPizzas);
             ArrayList<Ingrediente> listaIngredientes = Model.instance().ObtenerListaIngredientes();
             request.getSession().setAttribute("listaIngrediente", listaIngredientes);
-            if(rol.equals("Cliente")){
+            if (rol.equals("Cliente")) {
                 RequestDispatcher dispatcher = request.getRequestDispatcher(
-                "/Vistas/Menu.jsp");
-        dispatcher.forward(request, response);
+                        "/Vistas/Menu.jsp");
+                dispatcher.forward(request, response);
             }
         }
-         RequestDispatcher dispatcher = request.getRequestDispatcher(
+        RequestDispatcher dispatcher = request.getRequestDispatcher(
                 "/Vistas/VistaPrincipal.jsp");
         dispatcher.forward(request, response);
     }
@@ -80,6 +83,29 @@ public class ServletUsuario extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher(
                 "/Vistas/VistaPrincipal.jsp");
         dispatcher.forward(request, response);
+    }
+
+    protected void AgregarPizza(HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        String nombre = request.getParameter("nombre");
+        ArrayList<Ingrediente> listaI = (ArrayList<Ingrediente>) request.getSession().getAttribute("listaIngrediente");
+        ArrayList<Ingrediente> listaTem = new ArrayList<>();
+        int j = 0;
+        for (Ingrediente i : listaI) {
+
+            String id = request.getParameter("ingrediente" + j);
+            if (id != null) {
+                listaTem.add(i);
+            }
+            j++;
+        }
+        Pizza pizza = new Pizza(nombre, listaTem, listaI.size() + 1);
+        Model.instance().AgregarPizza(pizza);
+            RequestDispatcher dispatcher = request.getRequestDispatcher(
+                "/Vistas/Menu.jsp");
+        dispatcher.forward(request, response);   
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

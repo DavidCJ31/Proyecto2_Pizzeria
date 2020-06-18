@@ -5,6 +5,7 @@
  */
 package coneccion;
 
+import clases.Ingrediente;
 import clases.Pizza;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -69,4 +70,24 @@ public class DaoPizza {
         }
         return lista;
     }
+
+    public static boolean agregarPizza(Pizza pizza, Connection cnx) {
+
+        try (PreparedStatement stm = cnx.prepareStatement(IMEC_Usuario.INSERTARPIZZA.obtenerComando());) {
+            stm.clearParameters();
+            stm.setString(1, String.valueOf(pizza.getPizzaID()));
+            stm.setString(2, String.valueOf(pizza.getNombre()));
+            stm.setString(3, String.valueOf(pizza.getTamanno()));
+            stm.setString(4, String.valueOf(pizza.getPrecio()));
+            stm.executeUpdate();
+            for(Ingrediente i: pizza.getListaIngredientes()){
+                DaoRelacionPizzaIngrediente.agregarIngrediente( String.valueOf(pizza.getPizzaID()), i, cnx);
+            }
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+
 }

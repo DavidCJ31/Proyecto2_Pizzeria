@@ -17,14 +17,16 @@ public enum IMEC_Usuario {
     // LISTARCUENTASCLIENTE("SELECT num_cuenta, tipo_cuenta_id_tipo_cuenta, cliente_id_cliente, moneda_nombre, fecha_creacion, limite_transferencia_diaria, activa, saldo_inicial, fecha_ultima_aplicacion, saldo_final FROM cuenta WHERE cliente_id_cliente=?; "),
     LISTAR("SELECT id, fecha, estado, usuario FROM orden WHERE usuario=?; "),
     LISTARPIZZA("SELECT ID, nombre, tamano, precio FROM pizza WHERE ID=?; "),
-     LISTARPIZZAS("SELECT ID, nombre, tamano, precio FROM pizza; "),
+    INSERTARPIZZA("INSERT INTO pizza(ID, nombre, tamano, precio) VALUES(?,?,?,?); "),
+    INSERTARPIZZAINGREDIENTE("INSERT INTO relacion_pizza_ingredientes(pizza, ingrediente) VALUES(?,?); "),
+    LISTARPIZZAS("SELECT ID, nombre, tamano, precio FROM pizza; "),
     CONSULTARPRODUCTO("SELECT ID, nombre, precio, descripcion FROM producto WHERE ID=?; "),
     CONSULTARING("SELECT ID, nombre, precio FROM ingredientes WHERE ID=?; "),
     LISTARING("SELECT ID, nombre, precio FROM ingredientes;"),
     LISTARPIZZAORDEN("SELECT orden, pizza, cantidad FROM relacion_pizza_orden WHERE orden=?; "),
     LISTARPRODUCTOORDEN("SELECT orden, cantidad, producto FROM relacion_producto_orden WHERE orden=?; "),
     LISTARINGREDIENTESPIZZA("SELECT pizza, ingrediente FROM relacion_pizza_ingredientes WHERE pizza=?; "),
-     LISTARINGREDIENTESADICIONALES("SELECT pizza, ingrediente, orden FROM adicionales WHERE pizza=? AND orden = ?; "),
+    LISTARINGREDIENTESADICIONALES("SELECT pizza, ingrediente, orden FROM adicionales WHERE pizza=? AND orden = ?; "),
     INSERTARUSUARIO("INSERT INTO usuario(id, tipo, password, nombre, apellido1, apellido2, direccion, telefono) VALUES(?,?,?,?,?,?,?,?); ");
 
     IMEC_Usuario(String comando) {

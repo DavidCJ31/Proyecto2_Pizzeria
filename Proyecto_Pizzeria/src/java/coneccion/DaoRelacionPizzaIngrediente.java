@@ -46,4 +46,18 @@ public class DaoRelacionPizzaIngrediente {
         }
         return c;
     }
+    public static boolean agregarIngrediente(String id,Ingrediente ingrediente, Connection cnx) {
+
+        try (PreparedStatement stm = cnx.prepareStatement(IMEC_Usuario.INSERTARPIZZAINGREDIENTE.obtenerComando());) {
+            stm.clearParameters();
+            stm.setString(1, id);
+            stm.setString(2, String.valueOf(ingrediente.getIdIng()));
+            stm.executeUpdate();            
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    } 
+     
 }
