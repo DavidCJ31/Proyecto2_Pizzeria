@@ -19,19 +19,24 @@
         <div id="hederButton">
             <form action="Vistas/ListaCuentas.jsp">
                 <button  type="submit" class="btn btn-primary" >
-                Cuentas
-            </button>
+                    Cuentas
+                </button>
             </form>
+        </div>
+       
+        <div id="carritoIconDiv">
+            
         </div>
 
-<!--                <div id="hederButton">
-            <form action="Vistas/VistaCajero.jsp">
-                <button  type="submit" class="btn btn-primary" >
-                Cajero
-            </button>
-            </form>
-        </div>
--->
-        
+
+        <!--                <div id="hederButton">
+                    <form action="Vistas/VistaCajero.jsp">
+                        <button  type="submit" class="btn btn-primary" >
+                        Cajero
+                    </button>
+                    </form>
+                </div>
+        -->
+
     </div>
 </nav>

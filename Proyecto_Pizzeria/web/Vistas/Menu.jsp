@@ -59,13 +59,13 @@
                                 <div class="modal fade" id="Moda<%= i%>"   tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content"  id="center">
-                                            <h5 class="modal-title" id="centro"><%=c.getNombre()%></h5>
+                                            <h2 class="modal-title" id="centro"><%=c.getNombre()%></h2>
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <div>
+                                            <div id="marg">
                                                 <h3>Ingredientes: </h3>
                                                 <%
                                                     for(Ingrediente ingre: c.getListaIngredientes()){
@@ -75,7 +75,7 @@
                                                     }
                                                 %>
                                             </div>
-                                            <div>
+                                            <div id="marg">
                                                 <h3>Precio: </h3>
                                                 <h4><%=c.getPrecio()%></h4>
                                             </div>
@@ -92,10 +92,12 @@
  
                             </td>
                             <td >
-                                <button  type="submit" onclick="saludar()" class="btn btn-default"><img  src="../assets/imagenes/add.png"  style=" width: 50px; height: 50px;"></button>
+                                <input name="" id="<%=i + "g"%>" style="display:none;" value="<%=pizzaJson(c, "grande")%>">
+                                <button  type="submit" onclick="agregarPizzaCarrito('<%=i + "g"%>')" class="btn btn-default"><img  src="../assets/imagenes/add.png"  style=" width: 50px; height: 50px;"></button>
                             </td>
                             <td width="200">
-                                <button  type="submit" class="btn btn-default"><img  src="../assets/imagenes/add.png"  style=" width: 50px; height: 50px;"></button>
+                                 <input name="" id="<%=i + "f"%>" style="display:none;" value="<%=pizzaJson(c, "familiar")%>">
+                                <button  type="submit" onclick="agregarPizzaCarrito('<%=i + "f"%>')" class="btn btn-default"><img  src="../assets/imagenes/add.png"  style=" width: 50px; height: 50px;"></button>
                             </td>
                             <td width="200">
                                 <button  type="submit" class="btn btn-default"><img  src="../assets/imagenes/delete.png"  style=" width: 50px; height: 50px;"></button>
@@ -129,7 +131,7 @@
                                 </div>
                                 <div class="form-row mb-4">
                                     <div class="col">
-                                        <h4>Ingredientes: </h4>
+                                        <h4 id="h4">Ingredientes: </h4>
                                     </div>
                                 </div>
                                 <%
@@ -168,7 +170,15 @@
             r.put("nombre", p.getNombre());
             r.put("tamano", tam);
             r.put("id", p.getPizzaID());
+if(tam.equals("personal")){
             r.put("precio", p.getPrecio());
+}
+if(tam.equals("grande")){
+            r.put("precio", p.getPrecio()*2);
+}
+if(tam.equals("familiar")){
+            r.put("precio", p.getPrecio()*3);
+}
             for (Ingrediente ing : p.getListaIngredientes()) {
                 JSONObject ingred = new JSONObject();
                 ingred.put("id", ing.getIdIng());
@@ -186,11 +196,25 @@
 </html> 
 <script>
     var carritoCompras = [];
+    divCarro = document.getElementById("carritoIconDiv");
+    var imagen = document.createElement("img");
+    imagen.setAttribute("src", "../assets/imagenes/carrito.png");
+    imagen.setAttribute("style", "width: 50px; height: 50px; float: left;");
+    var numCarro = document.createElement("h5");
+    numCarro.textContent = carritoCompras.length;
+     numCarro.setAttribute("id", "numCarro");
+     numCarro.setAttribute("style", "float: left;")
+    divCarro.appendChild(imagen);
+    divCarro.appendChild(numCarro);
     function agregarPizzaCarrito(llave) {
         inp = document.getElementById(llave);
         var pizza = inp.value;
         carritoCompras.push(pizza);
-        alert("carrito" + carritoCompras);
+        actualizarNumeroCarrito();
+    }
+    function actualizarNumeroCarrito(){
+         numCarro = document.getElementById("numCarro");
+         numCarro.textContent = carritoCompras.length;
     }
 
 </script>
