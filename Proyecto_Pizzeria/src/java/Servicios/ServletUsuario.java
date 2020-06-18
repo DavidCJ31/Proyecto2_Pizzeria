@@ -90,24 +90,25 @@ public class ServletUsuario extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         String nombre = request.getParameter("nombre");
-            ArrayList<Pizza> listaPizzas = Model.instance().ObtenerListaPizzas();
         ArrayList<Ingrediente> listaI = (ArrayList<Ingrediente>) request.getSession().getAttribute("listaIngrediente");
         ArrayList<Ingrediente> listaTem = new ArrayList<>();
+        ArrayList<Ingrediente> listaPP = (ArrayList<Ingrediente>) request.getSession().getAttribute("listaPizzas"); 
         int j = 0;
         for (Ingrediente i : listaI) {
 
-             String id = request.getParameter("ingrediente" + j);
+            String id = request.getParameter("ingrediente" + j);
             if (id != null) {
                 listaTem.add(i);
             }
             j++;
         }
-        Pizza pizza = new Pizza(nombre, listaTem, listaPizzas.size() + 1);
+        Pizza pizza = new Pizza(nombre, listaTem, listaPP.size() + 1);        
         Model.instance().AgregarPizza(pizza);
+            ArrayList<Pizza> listaPizzas = Model.instance().ObtenerListaPizzas();
+            request.getSession().setAttribute("listaPizzas", listaPizzas);
             RequestDispatcher dispatcher = request.getRequestDispatcher(
                 "/Vistas/Menu.jsp");
-        dispatcher.forward(request, response);   
-
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
