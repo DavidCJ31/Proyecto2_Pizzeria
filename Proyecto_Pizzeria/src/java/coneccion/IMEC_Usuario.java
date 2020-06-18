@@ -19,7 +19,7 @@ public enum IMEC_Usuario {
     LISTARPIZZA("SELECT ID, nombre, precio FROM pizza WHERE ID=?; "),
     INSERTARPIZZA("INSERT INTO pizza(ID, nombre, precio) VALUES(?,?,?); "),
     INSERTARPIZZAINGREDIENTE("INSERT INTO relacion_pizza_ingredientes(pizza, ingrediente) VALUES(?,?); "),
-    LISTARPIZZAS("SELECT ID, nombre, tamano, precio FROM pizza; "),
+    LISTARPIZZAS("SELECT ID, nombre, precio FROM pizza; "),
     CONSULTARPRODUCTO("SELECT ID, nombre, precio, descripcion FROM producto WHERE ID=?; "),
     CONSULTARING("SELECT ID, nombre, precio FROM ingredientes WHERE ID=?; "),
     LISTARING("SELECT ID, nombre, precio FROM ingredientes;"),
