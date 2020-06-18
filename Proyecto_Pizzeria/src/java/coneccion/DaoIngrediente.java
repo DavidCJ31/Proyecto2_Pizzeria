@@ -36,22 +36,23 @@ public class DaoIngrediente {
         }
         return r;
     }
-    public static Ingrediente obtenerListaIngredientes(Connection cnx) {
-        Ingrediente r = null;
+    public static ArrayList<Ingrediente> obtenerListaIngredientes(Connection cnx) {
+         ArrayList<Ingrediente> lista = new ArrayList<>();
         try (PreparedStatement stm = cnx.prepareStatement(IMEC_Usuario.LISTARING.obtenerComando());) {
             stm.clearParameters();
             try (ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
-                    r = (new Ingrediente(
+                  Ingrediente  r = (new Ingrediente(
                             rs.getString("nombre"),
                             rs.getInt("precio"),
                             rs.getInt("ID")
                     ));
+                  lista.add(r);
                 }
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        return r;
+        return lista;
     }
 }

@@ -19,12 +19,12 @@ public class Pizza {
         this.pizzaID = pizzaID;
     }
     
-    public Pizza(String nombre, String tamanno,  ArrayList<Ingrediente> listaIngredientes, int cantidad, int pizzaID) {
+    public Pizza(String nombre,  ArrayList<Ingrediente> listaIngredientes, int pizzaID) {
         this.nombre = nombre;
-        this.tamanno = tamanno;
+        this.tamanno = "";
         this.precio = calculaPrecio(listaIngredientes);
         this.listaIngredientes = listaIngredientes;
-        this.cantidad = cantidad;
+        this.cantidad = 0;
         this.pizzaID = pizzaID;
     }
 

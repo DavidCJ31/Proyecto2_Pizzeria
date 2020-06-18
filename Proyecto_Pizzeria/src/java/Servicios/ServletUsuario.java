@@ -6,6 +6,7 @@
 package Servicios;
 
 import Modelo.Model;
+import clases.Ingrediente;
 import clases.Orden;
 import clases.Pizza;
 import clases.Usuario;
@@ -50,6 +51,8 @@ public class ServletUsuario extends HttpServlet {
             request.getSession(true).setAttribute("Usuario", us);
             ArrayList<Pizza> listaPizzas = Model.instance().ObtenerListaPizzas();
             request.getSession().setAttribute("listaPizzas", listaPizzas);
+            ArrayList<Ingrediente> listaIngredientes = Model.instance().ObtenerListaIngredientes();
+            request.getSession().setAttribute("listaIngrediente", listaIngredientes);
             if(rol.equals("Cliente")){
                 RequestDispatcher dispatcher = request.getRequestDispatcher(
                 "/Vistas/Menu.jsp");

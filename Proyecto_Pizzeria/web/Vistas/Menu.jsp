@@ -4,6 +4,7 @@
     Author     : metal
 --%>
 
+<%@page import="clases.Ingrediente"%>
 <%@page import="clases.Pizza"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="clases.Usuario"%>
@@ -17,12 +18,13 @@
         <title>Menu</title>		
         <%@include file="/Vistas/Head.jsp"%>  
         <%@include file="/Vistas/Heder.jsp"%>  
-        
+
     </head>
     <body>
         <%
             Usuario us = (Usuario) request.getSession().getAttribute("Usuario");
             ArrayList<Pizza> listaP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas");
+            ArrayList<Ingrediente> listaI = (ArrayList<Ingrediente>) request.getSession().getAttribute("listaIngrediente");
         %>
         <div id="fondoTabla">
             <h1 id="TituloVista">Menu</h1>  
@@ -86,7 +88,7 @@
                             <td width="200">
                                 <button  type="submit" class="btn btn-default"><img  src="../assets/imagenes/add.png"  style=" width: 50px; height: 50px;"></button>
                             </td>
-                             <td width="200">
+                            <td width="200">
                                 <button  type="submit" class="btn btn-default"><img  src="../assets/imagenes/delete.png"  style=" width: 50px; height: 50px;"></button>
                             </td>
                         </tr>
@@ -94,37 +96,60 @@
 
                     </tbody>
                 </table>
-                <%--  <button id="marg" type="button" data-toggle="modal" data-target="#Moda" class="btn btn-warning" >Realizar Pedido</button>--%>
+                <button id="marg" type="button" data-toggle="modal" data-target="#Moda" class="btn btn-warning" >Agregar Pizza</button>
             </div>
         </div>
         <div class="modal fade" id="Moda"   tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content"  id="center">
-                    <h5 class="modal-title" id="centro">Forma de Pago</h5>
+                    <h5 class="modal-title" id="centro">Agregar Pizza</h5>
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="Pedir" id="PerfilTable">
-                        <div id="logBanco" class="input-group-prepend">
-                            <div class="input-group-text">
-                                <input type="checkbox">
-                                <label>Tarjeta</label>
+                    <form action="CrearPizza" id="PerfilTable">
+                        <div class="modal-body jumbotron" id="modBody">
+                            <div class="text-center border border-light p-5 " >
+                                <div class="form-row mb-4">
+                                    <div class="col">
+                                        <!-- First name -->
+
+                                        <input type="text" id="defaultRegisterFormFirstName" name="nombre" class="form-control" placeholder="Nombre" required >
+                                    </div>
+                                </div>
+                                <div class="form-row mb-4">
+                                    <div class="col">
+                                        <h4>Ingredientes: </h4>
+                                    </div>
+                                </div>
+                                <%
+                                    int j = 0;
+
+                                    for (Ingrediente k : listaI) {
+                                        j++;
+                                %>
+                                <div class="form-row mb-4">
+                                    <div id="logBanco" class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <div class="col">
+                                                <input  type="checkbox" name="ingrediente<%=j - 1%>">
+                                            </div>
+                                            <div class="col">
+                                                <label id="marg"><%=k.getNombre()%></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%}%>
                             </div>
-                        </div>
-                        <div id="logBanco" class="input-group-prepend">
-                            <div class="input-group-text">
-                                <input type="checkbox">
-                                <label>Contra Entrega</label>
-                            </div>
+                            <!-- Default form register -->
                         </div>
                         <button type="button" class="btn btn-danger"  data-dismiss="modal">Cerrar</button>
                         <button type="submit" class="btn btn-warning" >Aceptar</button>
                     </form>
-
                 </div>
             </div>
         </div>
     </body>
-</html>
+</html> 

@@ -83,18 +83,7 @@
                                         Minimo 8 caracteres
                                     </small>
                                 </div>
-
                             </div>
-
-
-
-
-
-
-
-
-
-
                         </div>
                         <!-- Default form register -->
                     </div>

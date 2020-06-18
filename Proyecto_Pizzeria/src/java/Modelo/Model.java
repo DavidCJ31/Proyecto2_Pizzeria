@@ -5,9 +5,11 @@
  */
 package Modelo;
 
+import clases.Ingrediente;
 import clases.Pizza;
 import clases.Usuario;
 import coneccion.Conecion;
+import coneccion.DaoIngrediente;
 import coneccion.DaoPizza;
 import coneccion.DaoUsuario;
 import java.io.IOException;
@@ -61,5 +63,8 @@ public class Model {
     }
     public static ArrayList<Pizza> ObtenerListaPizzas(){
         return DaoPizza.obtenerListaPizzas(conn);
+    }public static ArrayList<Ingrediente> ObtenerListaIngredientes(){
+        return DaoIngrediente.obtenerListaIngredientes(conn);
     }
+    
 }
