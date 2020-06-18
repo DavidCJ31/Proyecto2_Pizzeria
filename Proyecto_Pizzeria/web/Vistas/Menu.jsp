@@ -4,6 +4,8 @@
     Author     : metal
 --%>
 
+<%@page import="org.json.JSONArray"%>
+<%@page import="org.json.JSONObject"%>
 <%@page import="clases.Ingrediente"%>
 <%@page import="clases.Pizza"%>
 <%@page import="java.util.ArrayList"%>
@@ -78,8 +80,10 @@
                             </td>
                             <td style=""><%=c.getNombre()%></td>
                             <td >
-                                <%--<input name="" id="Cuenta" style="display:none;" value="=c.getNcuenta()">--%>
-                                <button  type="submit" class="btn btn-default"><img  src="../assets/imagenes/add.png"  style=" width: 50px; height: 50px;"></button>
+                                <input name="" id="<%=i + "p"%>" style="display:none;" value="<%=pizzaJson(c, "personal")%>">
+                                <button type="button" onclick="agregarPizzaCarrito('<%=i + "p"%>')" class="btn btn-default">
+                                    <img  src="../assets/imagenes/add.png"  style=" width: 50px; height: 50px;">
+                                </button>
 
                             </td>
                             <td >
@@ -152,4 +156,36 @@
             </div>
         </div>
     </body>
+    <%!
+        public String pizzaJson(Pizza p, String tam) {
+            JSONObject r = new JSONObject();
+            JSONArray a = new JSONArray();
+            r.put("nombre", p.getNombre());
+            r.put("tamano", tam);
+            r.put("id", p.getPizzaID());
+            r.put("precio", p.getPrecio());
+            for (Ingrediente ing : p.getListaIngredientes()) {
+                JSONObject ingred = new JSONObject();
+                ingred.put("id", ing.getIdIng());
+                ingred.put("nombre", ing.getNombre());
+                ingred.put("precio", ing.getPrecio());
+                a.put(ingred);
+            }
+            r.put("ingredientes", a);
+            String aux = r.toString();
+            aux = aux.replace('\"', '\'');
+            return aux;
+        }
+
+    %>
 </html> 
+<script>
+    var carritoCompras = [];
+
+    function agregarPizzaCarrito(llave) {
+        inp = document.getElementById(llave);
+        var pizza = inp.value;
+        carritoCompras.push(pizza);
+    }
+
+</script>

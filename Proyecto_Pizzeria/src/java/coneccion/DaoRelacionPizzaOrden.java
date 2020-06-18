@@ -32,7 +32,6 @@ public class DaoRelacionPizzaOrden {
                     Pizza p = DaoPizza.obtenerPizza(String.valueOf(o.getPizzaID()), cnx);
                     ArrayList<Ingrediente> ad = DaoAdicionales.obtenerIngredienteAdicionales(String.valueOf(p.getPizzaID()), id, cnx);
                     o.setNombre(p.getNombre());
-                    o.setTamanno(p.getTamanno());
                     p.getListaIngredientes().addAll(ad);
                     o.setListaIngredientes(p.getListaIngredientes());
                     o.setPrecio(p.getPrecio());
@@ -49,6 +48,7 @@ public class DaoRelacionPizzaOrden {
         try {
             c.setCantidad(rs.getInt("cantidad"));
             c.setPizzaID(rs.getInt("pizza"));
+            c.setTamanno("tamano");
         } catch (SQLException ex) {
 
         }
