@@ -61,10 +61,11 @@ public class ServletUsuario extends HttpServlet {
                         "/Vistas/Menu.jsp");
                 dispatcher.forward(request, response);
             }
-        }
+        }else{
         RequestDispatcher dispatcher = request.getRequestDispatcher(
                 "/Vistas/VistaPrincipal.jsp");
         dispatcher.forward(request, response);
+        }
     }
 
     protected void Regisistrar(HttpServletRequest request,
@@ -89,18 +90,19 @@ public class ServletUsuario extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         String nombre = request.getParameter("nombre");
+            ArrayList<Pizza> listaPizzas = Model.instance().ObtenerListaPizzas();
         ArrayList<Ingrediente> listaI = (ArrayList<Ingrediente>) request.getSession().getAttribute("listaIngrediente");
         ArrayList<Ingrediente> listaTem = new ArrayList<>();
         int j = 0;
         for (Ingrediente i : listaI) {
 
-            String id = request.getParameter("ingrediente" + j);
+             String id = request.getParameter("ingrediente" + j);
             if (id != null) {
                 listaTem.add(i);
             }
             j++;
         }
-        Pizza pizza = new Pizza(nombre, listaTem, listaI.size() + 1);
+        Pizza pizza = new Pizza(nombre, listaTem, listaPizzas.size() + 1);
         Model.instance().AgregarPizza(pizza);
             RequestDispatcher dispatcher = request.getRequestDispatcher(
                 "/Vistas/Menu.jsp");

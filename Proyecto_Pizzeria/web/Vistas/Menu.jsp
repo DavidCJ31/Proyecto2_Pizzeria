@@ -67,8 +67,13 @@
                                             </div>
                                             <div>
                                                 <h3>Ingredientes: </h3>
-                                                <h4><%=c.getListaIngredientes().toString()%></h4>
-
+                                                <%
+                                                    for(Ingrediente ingre: c.getListaIngredientes()){
+                                                %>  
+                                                <h4><%= ingre.getNombre() %></h4>
+                                                <%
+                                                    }
+                                                %>
                                             </div>
                                             <div>
                                                 <h3>Precio: </h3>
@@ -79,15 +84,15 @@
                                 </div>
                             </td>
                             <td style=""><%=c.getNombre()%></td>
-                            <td >
+                            <td>
                                 <input name="" id="<%=i + "p"%>" style="display:none;" value="<%=pizzaJson(c, "personal")%>">
-                                <button type="button" onclick="agregarPizzaCarrito('<%=i + "p"%>')" class="btn btn-default">
+                                <button type="submit" onclick="agregarPizzaCarrito('<%=i + "p"%>')" class="btn btn-default">
                                     <img  src="../assets/imagenes/add.png"  style=" width: 50px; height: 50px;">
                                 </button>
-
+ 
                             </td>
                             <td >
-                                <button  type="submit" class="btn btn-default"><img  src="../assets/imagenes/add.png"  style=" width: 50px; height: 50px;"></button>
+                                <button  type="submit" onclick="saludar()" class="btn btn-default"><img  src="../assets/imagenes/add.png"  style=" width: 50px; height: 50px;"></button>
                             </td>
                             <td width="200">
                                 <button  type="submit" class="btn btn-default"><img  src="../assets/imagenes/add.png"  style=" width: 50px; height: 50px;"></button>
@@ -181,11 +186,11 @@
 </html> 
 <script>
     var carritoCompras = [];
-
     function agregarPizzaCarrito(llave) {
         inp = document.getElementById(llave);
         var pizza = inp.value;
         carritoCompras.push(pizza);
+        alert("carrito" + carritoCompras);
     }
 
 </script>
