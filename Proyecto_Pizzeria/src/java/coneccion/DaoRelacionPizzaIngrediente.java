@@ -29,7 +29,7 @@ public class DaoRelacionPizzaIngrediente {
                 for(int i = 0; i < r.size(); i++){
                     Ingrediente o = r.get(i);
                     Ingrediente p = DaoIngrediente.obtenerIngrediente(String.valueOf(o.getIdIng()), cnx);
-                   o = p;
+                   r.set(i, p);
                 }
             }
         } catch (SQLException ex) {

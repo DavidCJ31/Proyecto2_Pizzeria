@@ -31,7 +31,7 @@ public class DaoPizza {
                             rs.getInt("precio"),
                             new ArrayList<>(),
                             0,
-                            rs.getInt("id")
+                            rs.getInt("ID")
                     ));
                 }
                 r.setListaIngredientes(DaoRelacionPizzaIngrediente.obtenerIngredientePizza(String.valueOf(r.getPizzaID()), cnx));
@@ -54,7 +54,7 @@ public class DaoPizza {
                             rs.getInt("precio"),
                             new ArrayList<>(),
                             0,
-                            rs.getInt("id")
+                            rs.getInt("ID")
                     ));
                     lista.add(r);
                 }
