@@ -59,5 +59,15 @@ public class DaoRelacionPizzaIngrediente {
             return false;
         }
     } 
+    
+    public static void eliminarIngrediente(int id, Connection cnx) {
+        try (PreparedStatement stm = cnx.prepareStatement(IMEC_Usuario.EXCLUIRPIZZAINGREDIENTE.obtenerComando());) {
+            stm.clearParameters();
+            stm.setInt(1, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
      
 }

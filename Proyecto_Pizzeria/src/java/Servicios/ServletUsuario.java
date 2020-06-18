@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author metal
  */
-@WebServlet(name = "ServletUsuario", urlPatterns = {"/logIn", "/Regisistrar", "/CrearPizza"})
+@WebServlet(name = "ServletUsuario", urlPatterns = {"/logIn", "/Regisistrar", "/CrearPizza","/EliminarPizza"})
 public class ServletUsuario extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -40,6 +40,9 @@ public class ServletUsuario extends HttpServlet {
         }
         if (request.getServletPath().equals("/CrearPizza")) {
             this.AgregarPizza(request, response);
+        }
+        if (request.getServletPath().equals("/EliminarPizza")) {
+            this.eliminarPizza(request, response);
         }
     }
 
@@ -92,7 +95,7 @@ public class ServletUsuario extends HttpServlet {
         String nombre = request.getParameter("nombre");
         ArrayList<Ingrediente> listaI = (ArrayList<Ingrediente>) request.getSession().getAttribute("listaIngrediente");
         ArrayList<Ingrediente> listaTem = new ArrayList<>();
-        ArrayList<Ingrediente> listaPP = (ArrayList<Ingrediente>) request.getSession().getAttribute("listaPizzas"); 
+        ArrayList<Pizza> listaPP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas"); 
         int j = 0;
         for (Ingrediente i : listaI) {
 
@@ -111,6 +114,23 @@ public class ServletUsuario extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    protected void eliminarPizza(HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        int numC = Integer.parseInt(request.getParameter("PizzaID"));
+       ArrayList<Pizza> listaP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas"); 
+        for (int i = 0; i < listaP.size(); i++) {
+            if (listaP.get(i).getPizzaID() == numC) {
+                Model.instance().EliminarPizza(listaP.get(i).getPizzaID());
+                listaP.remove(i);
+            }
+        }
+        request.getSession().setAttribute("listaPizzas", listaP);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(
+                "/Vistas/Menu.jsp");
+        dispatcher.forward(request, response);
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

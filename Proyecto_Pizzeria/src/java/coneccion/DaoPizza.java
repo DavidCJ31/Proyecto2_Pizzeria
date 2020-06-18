@@ -87,4 +87,16 @@ public class DaoPizza {
         }
     }
 
+    public static boolean eliminarPizza(int id, Connection cnx) {
+        try (PreparedStatement stm = cnx.prepareStatement(IMEC_Usuario.EXCLUIRPIZZA.obtenerComando());) {
+            stm.clearParameters();
+            stm.setInt(1, id);
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return false;
+    }
+    
 }

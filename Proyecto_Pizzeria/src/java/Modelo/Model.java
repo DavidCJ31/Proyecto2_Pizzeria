@@ -11,6 +11,7 @@ import clases.Usuario;
 import coneccion.Conecion;
 import coneccion.DaoIngrediente;
 import coneccion.DaoPizza;
+import coneccion.DaoRelacionPizzaIngrediente;
 import coneccion.DaoUsuario;
 import java.io.IOException;
 import java.sql.Connection;
@@ -71,5 +72,10 @@ public class Model {
     public static boolean AgregarPizza(Pizza pizza){
         return DaoPizza.agregarPizza(pizza, conn);
     }
+    
+    public static boolean EliminarPizza(int pizza){
+        DaoRelacionPizzaIngrediente.eliminarIngrediente(pizza, conn);
+        return DaoPizza.eliminarPizza(pizza, conn);
+    }    
     
 }

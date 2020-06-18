@@ -100,7 +100,10 @@
                                 <button  type="submit" onclick="agregarPizzaCarrito('<%=i + "f"%>')" class="btn btn-default"><img  src="../assets/imagenes/add.png"  style=" width: 50px; height: 50px;"></button>
                             </td>
                             <td width="200">
+                            <form action="EliminarPizza" >
+                                <input name="PizzaID" id="PizzaID" style="display:none;" value="<%=c.getPizzaID()%>">
                                 <button  type="submit" class="btn btn-default"><img  src="../assets/imagenes/delete.png"  style=" width: 50px; height: 50px;"></button>
+                            </form>
                             </td>
                         </tr>
                         <%}%>

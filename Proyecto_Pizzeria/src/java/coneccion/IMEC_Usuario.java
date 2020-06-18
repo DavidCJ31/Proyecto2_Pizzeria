@@ -12,7 +12,8 @@ package coneccion;
 public enum IMEC_Usuario {
     // INSERTARFAVORITA("INSERT INTO favorita (cliente_id_cliente, cuenta_num_cuenta) VALUES (?, ?);"),
     //  MODIFICAR("UPDATE cuenta SET saldo_final=? WHERE num_cuenta=?;"),
-    //EXCLUIR("DELETE FROM cuenta WHERE  num_cuenta=?;"),
+    EXCLUIRPIZZA("DELETE FROM pizza WHERE  ID=?;"),
+    EXCLUIRPIZZAINGREDIENTE("DELETE FROM relacion_pizza_ingredientes WHERE  pizza=?;"),
     CONSULTAR("SELECT id, tipo, password, nombre, apellido1, apellido2, direccion, telefono FROM usuario WHERE password=? AND id=?;"),
     // LISTARCUENTASCLIENTE("SELECT num_cuenta, tipo_cuenta_id_tipo_cuenta, cliente_id_cliente, moneda_nombre, fecha_creacion, limite_transferencia_diaria, activa, saldo_inicial, fecha_ultima_aplicacion, saldo_final FROM cuenta WHERE cliente_id_cliente=?; "),
     LISTAR("SELECT id, fecha, estado, usuario FROM orden WHERE usuario=?; "),
