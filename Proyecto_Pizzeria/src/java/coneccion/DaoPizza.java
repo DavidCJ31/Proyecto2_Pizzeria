@@ -17,8 +17,7 @@ import java.util.ArrayList;
  * @author metal
  */
 public class DaoPizza {
-    
-    
+
     public static Pizza obtenerPizza(String id, Connection cnx) {
         Pizza r = new Pizza();
         try (PreparedStatement stm = cnx.prepareStatement(IMEC_Usuario.LISTARPIZZA.obtenerComando());) {
@@ -41,5 +40,33 @@ public class DaoPizza {
             System.out.println(ex.getMessage());
         }
         return r;
+    }
+
+    public static ArrayList<Pizza> obtenerListaPizzas(Connection cnx) {
+        ArrayList<Pizza> lista = new ArrayList<>();
+        try (PreparedStatement stm = cnx.prepareStatement(IMEC_Usuario.LISTARPIZZAS.obtenerComando());) {
+            stm.clearParameters();
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    Pizza r = new Pizza();
+                    r = (new Pizza(
+                            rs.getString("nombre"),
+                            rs.getString("ID"),
+                            rs.getInt("precio"),
+                            new ArrayList<>(),
+                            0,
+                            rs.getInt("id")
+                    ));
+                    lista.add(r);
+                }
+                for (int i = 0; i < lista.size(); i++) {
+                    Pizza r = lista.get(i);
+                    r.setListaIngredientes(DaoRelacionPizzaIngrediente.obtenerIngredientePizza(String.valueOf(r.getPizzaID()), cnx));
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return lista;
     }
 }

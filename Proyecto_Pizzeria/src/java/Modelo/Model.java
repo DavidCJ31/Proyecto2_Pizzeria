@@ -5,12 +5,15 @@
  */
 package Modelo;
 
+import clases.Pizza;
 import clases.Usuario;
 import coneccion.Conecion;
+import coneccion.DaoPizza;
 import coneccion.DaoUsuario;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -55,5 +58,8 @@ public class Model {
     }
     public static Usuario ObtenerUsuario(String contrs, String id){
         return DaoUsuario.obtenerUsuario(contrs, id, conn);
+    }
+    public static ArrayList<Pizza> ObtenerListaPizzas(){
+        return DaoPizza.obtenerListaPizzas(conn);
     }
 }

@@ -18,9 +18,26 @@ public class Pizza {
         this.cantidad = cantidad;
         this.pizzaID = pizzaID;
     }
+    
+    public Pizza(String nombre, String tamanno,  ArrayList<Ingrediente> listaIngredientes, int cantidad, int pizzaID) {
+        this.nombre = nombre;
+        this.tamanno = tamanno;
+        this.precio = calculaPrecio(listaIngredientes);
+        this.listaIngredientes = listaIngredientes;
+        this.cantidad = cantidad;
+        this.pizzaID = pizzaID;
+    }
 
     public String getNombre() {
         return nombre;
+    }
+    
+    private int calculaPrecio(ArrayList<Ingrediente> listaIngredientes){
+        int p = 0;
+        for(int i = 0; i<listaIngredientes.size(); i++){
+            p = p + listaIngredientes.get(i).getPrecio();
+        }
+        return p;
     }
 
     public void setNombre(String nombre) {

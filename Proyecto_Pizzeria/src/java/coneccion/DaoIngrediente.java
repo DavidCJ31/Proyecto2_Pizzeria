@@ -36,4 +36,22 @@ public class DaoIngrediente {
         }
         return r;
     }
+    public static Ingrediente obtenerListaIngredientes(Connection cnx) {
+        Ingrediente r = null;
+        try (PreparedStatement stm = cnx.prepareStatement(IMEC_Usuario.LISTARING.obtenerComando());) {
+            stm.clearParameters();
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    r = (new Ingrediente(
+                            rs.getString("nombre"),
+                            rs.getInt("precio"),
+                            rs.getInt("ID")
+                    ));
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return r;
+    }
 }

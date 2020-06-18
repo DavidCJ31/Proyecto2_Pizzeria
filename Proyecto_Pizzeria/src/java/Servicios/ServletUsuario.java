@@ -7,6 +7,7 @@ package Servicios;
 
 import Modelo.Model;
 import clases.Orden;
+import clases.Pizza;
 import clases.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -46,6 +47,9 @@ public class ServletUsuario extends HttpServlet {
         String rol = request.getParameter("rol");
         Usuario us = Model.instance().ObtenerUsuario(clave, id);
         if(us.getTipo().equals(rol)){
+            request.getSession(true).setAttribute("Usuario", us);
+            ArrayList<Pizza> listaPizzas = Model.instance().ObtenerListaPizzas();
+            request.getSession().setAttribute("listaPizzas", listaPizzas);
             if(rol.equals("Cliente")){
                 RequestDispatcher dispatcher = request.getRequestDispatcher(
                 "/Vistas/Menu.jsp");
