@@ -40,3 +40,6 @@
 
     </div>
 </nav>
+<script>
+      var carritoCompras = [];
+    </script>

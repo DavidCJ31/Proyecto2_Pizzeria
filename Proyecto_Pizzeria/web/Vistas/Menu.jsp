@@ -68,9 +68,9 @@
                                             <div id="marg">
                                                 <h3>Ingredientes: </h3>
                                                 <%
-                                                    for(Ingrediente ingre: c.getListaIngredientes()){
+                                                    for (Ingrediente ingre : c.getListaIngredientes()) {
                                                 %>  
-                                                <h4><%= ingre.getNombre() %></h4>
+                                                <h4><%= ingre.getNombre()%></h4>
                                                 <%
                                                     }
                                                 %>
@@ -89,21 +89,21 @@
                                 <button type="submit" onclick="agregarPizzaCarrito('<%=i + "p"%>')" class="btn btn-default">
                                     <img  src="../assets/imagenes/add.png"  style=" width: 50px; height: 50px;">
                                 </button>
- 
+
                             </td>
                             <td >
                                 <input name="" id="<%=i + "g"%>" style="display:none;" value="<%=pizzaJson(c, "grande")%>">
                                 <button  type="submit" onclick="agregarPizzaCarrito('<%=i + "g"%>')" class="btn btn-default"><img  src="../assets/imagenes/add.png"  style=" width: 50px; height: 50px;"></button>
                             </td>
                             <td width="200">
-                                 <input name="" id="<%=i + "f"%>" style="display:none;" value="<%=pizzaJson(c, "familiar")%>">
+                                <input name="" id="<%=i + "f"%>" style="display:none;" value="<%=pizzaJson(c, "familiar")%>">
                                 <button  type="submit" onclick="agregarPizzaCarrito('<%=i + "f"%>')" class="btn btn-default"><img  src="../assets/imagenes/add.png"  style=" width: 50px; height: 50px;"></button>
                             </td>
                             <td width="200">
-                            <form action="EliminarPizza" >
-                                <input name="PizzaID" id="PizzaID" style="display:none;" value="<%=c.getPizzaID()%>">
-                                <button  type="submit" class="btn btn-default"><img  src="../assets/imagenes/delete.png"  style=" width: 50px; height: 50px;"></button>
-                            </form>
+                                <form action="EliminarPizza" >
+                                    <input name="PizzaID" id="PizzaID" style="display:none;" value="<%=c.getPizzaID()%>">
+                                    <button  type="submit" class="btn btn-default"><img  src="../assets/imagenes/delete.png"  style=" width: 50px; height: 50px;"></button>
+                                </form>
                             </td>
                         </tr>
                         <%}%>
@@ -173,15 +173,15 @@
             r.put("nombre", p.getNombre());
             r.put("tamano", tam);
             r.put("id", p.getPizzaID());
-if(tam.equals("personal")){
-            r.put("precio", p.getPrecio());
-}
-if(tam.equals("grande")){
-            r.put("precio", p.getPrecio()*2);
-}
-if(tam.equals("familiar")){
-            r.put("precio", p.getPrecio()*3);
-}
+            if (tam.equals("personal")) {
+                r.put("precio", p.getPrecio());
+            }
+            if (tam.equals("grande")) {
+                r.put("precio", p.getPrecio() * 2);
+            }
+            if (tam.equals("familiar")) {
+                r.put("precio", p.getPrecio() * 3);
+            }
             for (Ingrediente ing : p.getListaIngredientes()) {
                 JSONObject ingred = new JSONObject();
                 ingred.put("id", ing.getIdIng());
@@ -198,16 +198,29 @@ if(tam.equals("familiar")){
     %>
 </html> 
 <script>
-    var carritoCompras = [];
+
     divCarro = document.getElementById("carritoIconDiv");
+    var formC = document.createElement("form");
+    formC.setAttribute("action", "/Vistas/OrdenConfirmar.jsp");
+     var inpC = document.createElement("input");
+     inpC.setAttribute("name", "carroInput");
+     inpC.setAttribute("id", "carroInput");
+     inpC.setAttribute("style", "display:none;");
+     var botC = document.createElement("button");
+     botC.setAttribute("onclick", "enviarCarrito()");
+     botC.setAttribute("type", "submit");
+     botC.setAttribute("class", "btn btn-warning");
     var imagen = document.createElement("img");
     imagen.setAttribute("src", "../assets/imagenes/carrito.png");
     imagen.setAttribute("style", "width: 50px; height: 50px; float: left;");
     var numCarro = document.createElement("h5");
     numCarro.textContent = carritoCompras.length;
-     numCarro.setAttribute("id", "numCarro");
-     numCarro.setAttribute("style", "float: left;")
-    divCarro.appendChild(imagen);
+    numCarro.setAttribute("id", "numCarro");
+    numCarro.setAttribute("style", "float: left;");
+    botC.appendChild(imagen);
+    formC.appendChild(inpC);
+    formC.appendChild(botC);
+    divCarro.appendChild(formC);
     divCarro.appendChild(numCarro);
     function agregarPizzaCarrito(llave) {
         inp = document.getElementById(llave);
@@ -215,9 +228,13 @@ if(tam.equals("familiar")){
         carritoCompras.push(pizza);
         actualizarNumeroCarrito();
     }
-    function actualizarNumeroCarrito(){
-         numCarro = document.getElementById("numCarro");
-         numCarro.textContent = carritoCompras.length;
+    function actualizarNumeroCarrito() {
+        numCarro = document.getElementById("numCarro");
+        numCarro.textContent = carritoCompras.length;
+    }
+    function enviarCarrito(){
+        input = document.getElementById("carroInput");
+        input.value ='[' +  carritoCompras + ']';
     }
 
 </script>
