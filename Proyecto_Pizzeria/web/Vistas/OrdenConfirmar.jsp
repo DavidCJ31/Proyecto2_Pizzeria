@@ -4,6 +4,8 @@
     Author     : metal
 --%>
 
+<%@page import="org.json.JSONArray"%>
+<%@page import="org.json.JSONObject"%>
 <%@page import="clases.Ingrediente"%>
 <%@page import="clases.Pizza"%>
 <%@page import="java.util.ArrayList"%>
@@ -31,8 +33,8 @@
                         carritoCompras.push(item);
                     }
             );
-     numCarro.textContent = carritoCompras.length;
-     actualizarTablaOrden();
+            numCarro.textContent = carritoCompras.length;
+            actualizarTablaOrden();
         }
     </script>
     <body onload="cargarCarrito(<%=carrito%>)">
@@ -60,20 +62,20 @@
         <div class="modal fade" id="Moda"   tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content"  id="center">
-                    <h5 class="modal-title" id="centro">Agregar Adicional</h5>
+                    <h3 class="modal-title" id="centro">Agregar Adicional</h3>
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="" id="PerfilTable">
+                    <div action="" id="PerfilTable">
                         <div class="modal-body jumbotron" id="modBody">
                             <div class="text-center border border-light p-5 " >
                                 <div class="form-row mb-4">
                                     <div class="col">
                                         <!-- First name -->
 
-                                        <h3 id="nombre" ></h3>
+                                        <h4 id="nombre" ></h4>
                                     </div>
                                 </div>
                                 <div class="form-row mb-4">
@@ -91,7 +93,7 @@
                                     <div id="logBanco" class="input-group-prepend">
                                         <div class="input-group-text">
                                             <div class="col">
-                                                <input  type="checkbox" name="ingrediente<%=j - 1%>">
+                                                <input  type="checkbox" id="ingrediente<%=j - 1%>" name="ingrediente<%=j - 1%>">
                                             </div>
                                             <div class="col">
                                                 <label id="marg"><%=k.getNombre()%></label>
@@ -103,13 +105,31 @@
                             </div>
                             <!-- Default form register -->
                         </div>
+                        <input name="PizzaIngredientes" id="PizzaIngredientes" style="display:none;" value="<%=pizzaJson(listaI)%>">
+                        <input name="PizzaAdicional" id="PizzaAdicional" style="display:none;" >
                         <button type="button" class="btn btn-danger"  data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-warning" >Aceptar</button>
-                    </form>
+                        <button type="button" onclick="agregarAdicionalesPizza(<%=pizzaJson(listaI)%>)" data-dismiss="modal" class="btn btn-warning" >Aceptar</button>
+                    </div>
                 </div>
             </div>
         </div>
     </body>
+    <%!
+        public String pizzaJson(ArrayList<Ingrediente> lista) {
+            JSONArray a = new JSONArray();
+            for (Ingrediente ing : lista) {
+                JSONObject ingred = new JSONObject();
+                ingred.put("id", ing.getIdIng());
+                ingred.put("nombre", ing.getNombre());
+                ingred.put("precio", ing.getPrecio());
+                a.put(ingred);
+            }
+            String aux = a.toString();
+            aux = aux.replace('\"', '\'');
+            return aux;
+        }
+
+    %>
 </html>
 
 <script>
@@ -123,15 +143,41 @@
     numCarro.setAttribute("style", "float: left;")
     divCarro.appendChild(imagen);
     divCarro.appendChild(numCarro);
-
+    function seleccionarPizzaAdicionales(pos) {
+        pizza = document.getElementById("PizzaAdicional");
+        pizza.value = pos;
+        h3Nombre = document.getElementById("nombre");
+        h3Nombre.textContent = carritoCompras[pos].valueOf()['nombre'];
+    }
+    function agregarAdicionalesPizza(listaIngredientes) {
+        posPizza = document.getElementById("PizzaAdicional").value;
+        pizza = carritoCompras[posPizza];
+        listaIngredientes.forEach(
+                function (item, i) {
+                    inputIngrediente = document.getElementById("ingrediente" + i).checked;
+                    if (inputIngrediente === true) {
+                        pizza.valueOf()['ingredientes'].push(item);
+                        pizza.valueOf()['precio'] = pizza.valueOf()['precio'] + item.valueOf()['precio'];
+                    }
+                }
+        );
+        actualizarTablaOrden();
+    }
     function actualizarTablaOrden() {
         tabla = document.getElementById("tablaO");
+        if(tabla.hasChildNodes()){
+            var e = tabla.lastElementChild;
+            while(e){
+                tabla.removeChild(e);
+                e = tabla.lastElementChild;
+            }
+        }
         carritoCompras.forEach(
                 function (item, i) {
                     var fila = document.createElement("tr");
                     fila.setAttribute("style", "height: 10px");
                     var colum1 = document.createElement("td");
-                    colum1.textContent = i +1;
+                    colum1.textContent = i + 1;
                     fila.appendChild(colum1);
                     var colum2 = document.createElement("td");
                     colum2.textContent = item.nombre;
@@ -142,6 +188,7 @@
                     boton.setAttribute("type", "button");
                     boton.setAttribute("data-target", "#Moda");
                     boton.setAttribute("class", "btn btn-warning btn-block");
+                    boton.setAttribute("onclick", "seleccionarPizzaAdicionales(" + i + ")");
                     boton.textContent = "Agregar Adicionales";
                     colum3.appendChild(boton);
                     fila.appendChild(colum3);

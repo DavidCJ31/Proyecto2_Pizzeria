@@ -216,7 +216,8 @@
     var numCarro = document.createElement("h5");
     numCarro.textContent = carritoCompras.length;
     numCarro.setAttribute("id", "numCarro");
-    numCarro.setAttribute("style", "float: left;");
+    numCarro.setAttribute("style", "float:left");
+     formC.setAttribute("style", "float:left");
     botC.appendChild(imagen);
     formC.appendChild(inpC);
     formC.appendChild(botC);
