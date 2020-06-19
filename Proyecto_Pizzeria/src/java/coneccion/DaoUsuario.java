@@ -63,7 +63,19 @@ public class DaoUsuario {
             System.out.println(ex.getMessage());
             return false;
         }
-
+    }    
+    public static boolean modificarUsuario(Usuario us, Connection conn) {
+        try (PreparedStatement stm = conn.prepareStatement(IMEC_Usuario.MODIFICARUSUARIO.obtenerComando());) {
+            stm.clearParameters();
+            stm.setString(1, String.valueOf(us.getClave_acceso()));
+            stm.setString(2, String.valueOf(us.getDireccion()));
+            stm.setString(3, String.valueOf(us.getTelefono()));
+            stm.setString(4, String.valueOf(us.getId()));
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
     }
-
 }

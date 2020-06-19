@@ -76,6 +76,10 @@ public class Model {
     public static boolean EliminarPizza(int pizza){
         DaoRelacionPizzaIngrediente.eliminarIngrediente(pizza, conn);
         return DaoPizza.eliminarPizza(pizza, conn);
-    }    
+    }
+
+    public static boolean ModificarUsuario(Usuario us){
+        return DaoUsuario.modificarUsuario(us,conn);
+    }
     
 }

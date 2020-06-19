@@ -23,14 +23,14 @@
         %>
         <%@include file="/Vistas/Heder.jsp" %>
         <a href="/Vistas/Menu.jsp" style="float: right; margin: 25px;">
-            <button  type="submit" class="btn btn-primary" >
+            <button  type="submit" class="btn btn-warning">
                 Atras
             </button>
         </a>
         <h1 id="perfil">Perfil</h1>
         <div id="container">
 
-            <form id="form">
+            <form id="form" action="ModificarUsuario" >
                 <table>
                     <tr>
                         <th>
@@ -45,7 +45,7 @@
                             <label> Apellidos: </label>
                         </th>
                         <th>
-                            <input disabled='true' value="<%= us.getApellido_1() %>"> 
+                            <input disabled='true' value="<%= us.getApellido_1() +" "+ us.getApellido_2() %>"> 
                         </th>
                     </tr>
                     <tr>
@@ -53,7 +53,16 @@
                             <label> Cedula: </label>
                         </th>
                         <th>
-                            <input disabled='true' value="<%= us.getClave_acceso() %>"> 
+                            <input name="id" style="display:none;" value="<%= us.getId()%>">
+                            <input disabled='true' value="<%= us.getId()%>"> 
+                        </th>
+                    </tr>
+                                        <tr>
+                        <th>
+                            <label> Dirección: </label>
+                        </th>
+                        <th>
+                            <input name="direccion" value="<%= us.getDireccion() %>"> 
                         </th>
                     </tr>
                     <tr>
@@ -61,7 +70,7 @@
                             <label> Teléfono: </label>
                         </th>
                         <th>
-                            <input disabled='true' value="<%= us.getTelefono()%>"> 
+                            <input name="telefono" value="<%= us.getTelefono()%>"> 
                         </th>
                     </tr>
                     <tr>
@@ -70,6 +79,19 @@
                         </th>
                         <th>
                             <input disabled='true' value="<%= us.getTipo() %>"> 
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label> Contraseña: </label>
+                        </th>
+                        <th>
+                            <input name="contrasena" value="<%= us.getClave_acceso()%>"> 
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="2" style="text-align: center;">
+                                <button class="btn btn-warning">Aplicar cambios</button>
                         </th>
                     </tr>
                 </table>

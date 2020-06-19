@@ -7,11 +7,9 @@ package Servicios;
 
 import Modelo.Model;
 import clases.Ingrediente;
-import clases.Orden;
 import clases.Pizza;
 import clases.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -27,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author metal
  */
-@WebServlet(name = "ServletUsuario", urlPatterns = {"/logIn", "/Regisistrar", "/CrearPizza","/EliminarPizza"})
+@WebServlet(name = "ServletUsuario", urlPatterns = {"/logIn", "/Regisistrar", "/CrearPizza","/EliminarPizza","/ModificarUsuario"})
 public class ServletUsuario extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -43,6 +41,9 @@ public class ServletUsuario extends HttpServlet {
         }
         if (request.getServletPath().equals("/EliminarPizza")) {
             this.eliminarPizza(request, response);
+        }
+        if (request.getServletPath().equals("/ModificarUsuario")) {
+            this.modificarUsuario(request, response);
         }
     }
 
@@ -130,6 +131,29 @@ public class ServletUsuario extends HttpServlet {
                 "/Vistas/Menu.jsp");
         dispatcher.forward(request, response);
     }
+    
+    protected void modificarUsuario(HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        
+        String id = request.getParameter("id");
+        String direccion = request.getParameter("direccion");
+        String telefono = request.getParameter("telefono");
+        String contrasena = request.getParameter("contrasena");
+        
+        Usuario usuario;
+        usuario = (Usuario) request.getSession(true).getAttribute("Usuario");
+        usuario.setClave_acceso(contrasena);
+        usuario.setDireccion(direccion);
+        usuario.setTelefono(telefono);
+        Model.instance().ModificarUsuario(usuario);
+        request.getSession().setAttribute("Usuario", usuario);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(
+                "/Vistas/Menu.jsp");
+        dispatcher.forward(request, response);
+    }
+    
+    
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

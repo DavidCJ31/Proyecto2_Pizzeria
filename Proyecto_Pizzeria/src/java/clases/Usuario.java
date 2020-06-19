@@ -16,7 +16,13 @@ public class Usuario {
         this.telefono = telefono;
         this.nombre = nombre;
     }
-
+    public Usuario(String id, String clave_acceso, String direccion, String telefono) {
+        this.id = id;
+        this.clave_acceso = clave_acceso;
+        this.direccion = direccion;
+        this.telefono = telefono;
+    }
+    
     public String getId() {
         return id;
     }

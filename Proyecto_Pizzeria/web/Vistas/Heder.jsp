@@ -18,7 +18,7 @@
         </div>
         <div id="hederButton">
             <form action="Vistas/Menu.jsp">
-                <button  type="submit" class="btn btn-primary" >
+                <button  type="submit" class="btn btn-secondary" >
                     Menu
                 </button>
             </form>
@@ -29,14 +29,7 @@
         </div>
 
 
-        <!--                <div id="hederButton">
-                    <form action="Vistas/VistaCajero.jsp">
-                        <button  type="submit" class="btn btn-primary" >
-                        Cajero
-                    </button>
-                    </form>
-                </div>
-        -->
+
 
     </div>
 </nav>
