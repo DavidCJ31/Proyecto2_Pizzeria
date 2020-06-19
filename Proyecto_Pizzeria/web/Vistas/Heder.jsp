@@ -17,9 +17,9 @@
             </div>
         </div>
         <div id="hederButton">
-            <form action="Vistas/ListaCuentas.jsp">
+            <form action="Vistas/Menu.jsp">
                 <button  type="submit" class="btn btn-primary" >
-                    Cuentas
+                    Menu
                 </button>
             </form>
         </div>
