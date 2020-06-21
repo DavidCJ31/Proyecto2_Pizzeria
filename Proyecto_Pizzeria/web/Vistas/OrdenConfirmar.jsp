@@ -4,6 +4,7 @@
     Author     : metal
 --%>
 
+<%@page import="clases.Producto"%>
 <%@page import="org.json.JSONArray"%>
 <%@page import="org.json.JSONObject"%>
 <%@page import="clases.Ingrediente"%>
@@ -25,6 +26,7 @@
         ArrayList<Pizza> listaP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas");
         ArrayList<Ingrediente> listaI = (ArrayList<Ingrediente>) request.getSession().getAttribute("listaIngrediente");
         String carrito = request.getParameter("carroInput");
+        ArrayList<Producto> listProduct = (ArrayList<Producto>) request.getSession().getAttribute("listaProductos");
     %>
     <script>
         function cargarCarrito(carrito) {
@@ -59,6 +61,98 @@
                 </table>
             </div>
         </div>
+        <div class="form-group">
+            <button data-toggle="modal" style=" width: min-content;"  type="button" data-target="#Moda2"  class="btn btn-warning btn-block" >Confirmar Orden</button>
+        </div>
+
+        <div class="modal fade" id="Moda2"   tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content"  id="center">
+                    <h3 class="modal-title" id="centro">Agregar Productos Adicional</h3>
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="insertarOrden">
+                        <div action="" id="PerfilTable">
+                            <div class="modal-body jumbotron" id="modBody">
+                                <div class="text-center border border-light p-5 " >
+                                    <div class="form-row mb-4">
+                                        <div class="col">
+                                            <!-- First name -->
+
+                                            <h4 id="nombre" ></h4>
+                                        </div>
+                                    </div>
+                                    <div class="form-row mb-4">
+                                        <div class="col">
+                                            <h4 id="h4">Productos Adicionales: </h4>
+                                        </div>
+                                    </div>
+                                    <%
+                                        int m = 0;
+
+                                        for (Producto pt : listProduct) {
+                                            m++;
+                                    %>
+                                    <div class="form-row mb-4">
+                                        <div id="logBanco" class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <div class="col">
+                                                    <label id="marg"><%=pt.getNombre()%></label>
+                                                </div>
+                                                <div class="col">
+                                                    <input name="producto<%=m - 1%>" id="producto<%=m - 1%>" style="display:none;" value="<%=productoJson(pt)%>">
+                                                    <button  type="button" onclick="agregarProductoCarrito(<%=productoJson(pt)%>)" class="btn btn-default"><img  src="../assets/imagenes/add.png"  style=" width: 50px; height: 50px;"></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <%}%>
+                                    <div class="form-row mb-4">
+                                        <div class="col">
+                                            <h4 id="h4">Forma de Pago: </h4>
+                                        </div>
+                                    </div>
+                                    <div class="form-row mb-4">
+                                        <div id="logBanco" class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <div class="col">
+                                                    <input  type="checkbox" name="pagoEfectivo">
+                                                </div>
+                                                <div class="col">
+                                                    <label id="marg">Pago en Efectivo</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row mb-4">
+                                        <div id="logBanco" class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <div class="col">
+                                                    <input  type="checkbox" name="pagoTarjeta">
+                                                </div>
+                                                <div class="col">
+                                                    <label id="marg">Pago con Trajeta</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Default form register -->
+                            </div>
+                            <input name="CarritoPizzas" id="CarritoPizzas" style="display:none;">
+                            <input name="CarritoProductos" id="CarritoProductos" style="display:none;" >
+                            <button type="button" class="btn btn-danger"  data-dismiss="modal">Cerrar</button>
+                            <button type="button" onclick="guardaOrden()" class="btn btn-warning" >Aceptar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
         <div class="modal fade" id="Moda"   tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content"  id="center">
@@ -129,10 +223,22 @@
             return aux;
         }
 
+        public String productoJson(Producto ing) {
+            JSONObject produc = new JSONObject();
+            produc.put("precio", ing.getPrecio());
+            produc.put("descripcion", ing.getDescripcion());
+            produc.put("id", ing.getIDProducto());
+            produc.put("nombre", ing.getNombre());
+            String aux = produc.toString();
+            aux = aux.replace('\"', '\'');
+            return aux;
+        }
+
     %>
 </html>
 
 <script>
+
     divCarro = document.getElementById("carritoIconDiv");
     var imagen = document.createElement("img");
     imagen.setAttribute("src", "../assets/imagenes/carrito.png");
@@ -163,11 +269,82 @@
         );
         actualizarTablaOrden();
     }
+
+    function guardaOrden() {
+        var dato = new FormData();
+        carritoCompras.forEach(
+                function (item, i) {
+                    a = 'pizza' + i;
+                    b = JSON.stringify(item);
+                    dato.append(a, b);
+                    var ing = item.valueOf()['ingredientes']
+                    ing.forEach(
+                            function (ingred, j) {
+                                c = 'ingrediente' + j + 'pizza' + i;
+                                d = JSON.stringify(ingred);
+                                dato.append(c, d);
+                            }
+                    );
+                }
+        );
+        carritoProductos.forEach(
+                function (prodI, k) {
+                    e = 'producto' + k;
+                    f = JSON.stringify(prodI);
+                    dato.append(e, f);
+                }
+        );
+        if (carritoCompras.length > 0 && carritoProductos.length > 0) {
+            getJSON('insertarOrden', dato);
+        }
+    }
+    
+    function getJSON(url, data) {
+    fetch(url, {
+        method: 'POST',
+        body: data
+    }).then((result) => {
+        return result.json();
+    });
+}
+
+    function salvarCarrito() {
+        inpPizz = document.getElementById("CarritoPizzas");
+        inpProd = document.getElementById("CarritoProductos");
+        var inp = "";
+        carritoCompras.forEach(
+                function (item, i) {
+                    inp = inp + JSON.stringify(item.valueOf());
+                    if (i + 1 < carritoCompras.length) {
+                        inp = inp + ", ";
+                    }
+                }
+        );
+        inpPizz.value = inp;
+        inp = "";
+        carritoProductos.forEach(
+                function (item, i) {
+                    inp = inp + JSON.stringify(item.valueOf());
+                    if (i + 1 < carritoProductos.length) {
+                        inp = inp + ", ";
+                    }
+                }
+        );
+        inpProd.value = inp;
+    }
+    function actualizarNumeroCarrito() {
+        numC = document.getElementById("numCarro");
+        numC.textContent = carritoCompras.length + carritoProductos.length;
+    }
+    function agregarProductoCarrito(producto) {
+        carritoProductos.push(producto);
+        actualizarNumeroCarrito();
+    }
     function actualizarTablaOrden() {
         tabla = document.getElementById("tablaO");
-        if(tabla.hasChildNodes()){
+        if (tabla.hasChildNodes()) {
             var e = tabla.lastElementChild;
-            while(e){
+            while (e) {
                 tabla.removeChild(e);
                 e = tabla.lastElementChild;
             }
@@ -187,6 +364,7 @@
                     boton.setAttribute("data-toggle", "modal");
                     boton.setAttribute("type", "button");
                     boton.setAttribute("data-target", "#Moda");
+                    boton.setAttribute("style", "width: min-content;");
                     boton.setAttribute("class", "btn btn-warning btn-block");
                     boton.setAttribute("onclick", "seleccionarPizzaAdicionales(" + i + ")");
                     boton.textContent = "Agregar Adicionales";

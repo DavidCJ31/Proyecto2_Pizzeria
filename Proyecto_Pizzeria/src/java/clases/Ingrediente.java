@@ -1,6 +1,9 @@
 
 package clases;
 
+import javax.xml.bind.annotation.XmlElement;
+import org.json.JSONObject;
+
 public class Ingrediente {
 
     public Ingrediente(String nombre, int precio, int idIng) {
@@ -12,7 +15,7 @@ public class Ingrediente {
     public String getNombre() {
         return nombre;
     }
-
+ @XmlElement(name = "nombre")
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -20,7 +23,7 @@ public class Ingrediente {
     public int getPrecio() {
         return precio;
     }
-
+ @XmlElement(name = "precio")
     public void setPrecio(int precio) {
         this.precio = precio;
     }
@@ -28,7 +31,7 @@ public class Ingrediente {
     public int getIdIng() {
         return idIng;
     }
-
+ @XmlElement(name = "idIng")
     public void setIdIng(int idIng) {
         this.idIng = idIng;
     }
@@ -37,6 +40,13 @@ public class Ingrediente {
         this.nombre = "";
         this.precio = 0;
          this.idIng = 0;
+    }
+     public JSONObject toJSON() {
+        JSONObject r = new JSONObject();
+        r.put("nombre", getNombre());
+        r.put("precio", getPrecio());
+        r.put("idIng", getIdIng());
+        return r;
     }
     
     private String nombre;

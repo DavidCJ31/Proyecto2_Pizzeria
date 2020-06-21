@@ -6,7 +6,9 @@
 package coneccion;
 
 import clases.Ingrediente;
+import clases.Orden;
 import clases.Pizza;
+import clases.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -53,5 +55,19 @@ public class DaoRelacionPizzaOrden {
 
         }
         return c;
+    }
+    public static boolean insertarOrdenPizza(Orden guardarO, Pizza pi, Usuario us, Connection cnx) {
+        try (PreparedStatement stm = cnx.prepareStatement(IMEC_Usuario.INSERTARPIZZAORDEN.obtenerComando());) {
+            stm.clearParameters();
+            stm.setString(1, String.valueOf(guardarO.getIdOrden()));
+            stm.setString(2, String.valueOf(pi.getPizzaID()));
+            stm.setString(3, String.valueOf(pi.getCantidad()));
+            stm.setString(4, String.valueOf(pi.getTamanno()));
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
     }
 }

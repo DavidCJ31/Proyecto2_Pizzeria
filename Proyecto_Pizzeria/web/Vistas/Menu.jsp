@@ -4,6 +4,7 @@
     Author     : metal
 --%>
 
+<%@page import="clases.Producto"%>
 <%@page import="org.json.JSONArray"%>
 <%@page import="org.json.JSONObject"%>
 <%@page import="clases.Ingrediente"%>
@@ -19,10 +20,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Menu</title>		
         <%@include file="/Vistas/Head.jsp"%>  
-        <%@include file="/Vistas/Heder.jsp"%>  
+       <%@include file="/Vistas/Heder.jsp"%>  
 
     </head>
     <body>
+         
         <%
             Usuario us = (Usuario) request.getSession().getAttribute("Usuario");
             ArrayList<Pizza> listaP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas");
@@ -198,7 +200,6 @@
     %>
 </html> 
 <script>
-
     divCarro = document.getElementById("carritoIconDiv");
     var formC = document.createElement("form");
     formC.setAttribute("action", "/Vistas/OrdenConfirmar.jsp");

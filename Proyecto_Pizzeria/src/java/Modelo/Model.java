@@ -6,11 +6,15 @@
 package Modelo;
 
 import clases.Ingrediente;
+import clases.Orden;
 import clases.Pizza;
+import clases.Producto;
 import clases.Usuario;
 import coneccion.Conecion;
 import coneccion.DaoIngrediente;
+import coneccion.DaoOrden;
 import coneccion.DaoPizza;
+import coneccion.DaoProducto;
 import coneccion.DaoRelacionPizzaIngrediente;
 import coneccion.DaoUsuario;
 import java.io.IOException;
@@ -65,6 +69,9 @@ public class Model {
     public static ArrayList<Pizza> ObtenerListaPizzas(){
         return DaoPizza.obtenerListaPizzas(conn);
     }
+     public static ArrayList<Producto> ObtenerListaProductos(){
+        return DaoProducto.obtenerListaProductos(conn);
+    }
     public static ArrayList<Ingrediente> ObtenerListaIngredientes(){
         return DaoIngrediente.obtenerListaIngredientes(conn);
     }
@@ -80,6 +87,9 @@ public class Model {
 
     public static boolean ModificarUsuario(Usuario us){
         return DaoUsuario.modificarUsuario(us,conn);
+    }
+    public static boolean insertarOrdenDeUsuario(Orden guardarO, Usuario us, ArrayList<Pizza> listaPizza, ArrayList<Producto> listaProducto){
+        return DaoOrden.insertarOrden(guardarO, us, listaPizza, listaProducto, conn);
     }
     
 }

@@ -1,6 +1,9 @@
 
 package clases;
 
+import javax.xml.bind.annotation.XmlElement;
+import org.json.JSONObject;
+
 
 public class Producto {
 
@@ -11,11 +14,20 @@ public class Producto {
         this.cantidadProducto = cantidadProducto;
         this.nombre = nombre;
     }
+    
+    public Producto(int precio, String descripcion, int IDProducto, String nombre) {
+        
+        this.precio = precio;
+        this.descripcion = descripcion;
+        this.IDProducto = IDProducto;
+        this.cantidadProducto = 0;
+        this.nombre = nombre;
+    }
 
     public int getPrecio() {
         return precio;
     }
-
+@XmlElement(name = "precio")
     public void setPrecio(int precio) {
         this.precio = precio;
     }
@@ -23,7 +35,7 @@ public class Producto {
     public String getDescripcion() {
         return descripcion;
     }
-
+@XmlElement(name = "descripcion")
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
@@ -31,7 +43,7 @@ public class Producto {
     public int getIDProducto() {
         return IDProducto;
     }
-
+@XmlElement(name = "IDProducto")
     public void setIDProducto(int IDProducto) {
         this.IDProducto = IDProducto;
     }
@@ -39,7 +51,7 @@ public class Producto {
     public int getCantidadProducto() {
         return cantidadProducto;
     }
-
+@XmlElement(name = "cantidadProducto")
     public void setCantidadProducto(int cantidadProducto) {
         this.cantidadProducto = cantidadProducto;
     }
@@ -47,11 +59,19 @@ public class Producto {
     public String getNombre() {
         return nombre;
     }
-
+@XmlElement(name = "nombre")
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
+ public JSONObject toJSON() {
+        JSONObject r = new JSONObject();
+        r.put("precio", getPrecio());
+        r.put("descripcion", getPrecio());
+        r.put("IDProducto", getIDProducto());
+         r.put("cantidadProducto", getCantidadProducto());
+          r.put("nombre", getNombre());
+        return r;
+    }
     
      public Producto() {
         this.precio = 0;

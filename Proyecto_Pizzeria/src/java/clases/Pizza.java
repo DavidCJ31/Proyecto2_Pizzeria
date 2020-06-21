@@ -6,6 +6,8 @@
 package clases;
 
 import java.util.ArrayList;
+import javax.xml.bind.annotation.XmlElement;
+import org.json.JSONObject;
 
 
 public class Pizza {
@@ -16,6 +18,15 @@ public class Pizza {
         this.precio = precio;
         this.listaIngredientes = listaIngredientes;
         this.cantidad = cantidad;
+        this.pizzaID = pizzaID;
+    }
+    public Pizza(String nombre, String tam,  int precio, int pizzaID) {
+        
+        this.nombre = nombre;
+        this.tamanno = tam;
+        this.precio = precio;
+        this.listaIngredientes = new ArrayList<>();
+        this.cantidad = 0;
         this.pizzaID = pizzaID;
     }
     
@@ -39,7 +50,7 @@ public class Pizza {
         }
         return p;
     }
-
+ @XmlElement(name = "nombre")
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -47,7 +58,7 @@ public class Pizza {
     public String getTamanno() {
         return tamanno;
     }
-
+ @XmlElement(name = "tamanno")
     public void setTamanno(String tamanno) {
         this.tamanno = tamanno;
     }
@@ -55,7 +66,7 @@ public class Pizza {
     public int getPrecio() {
         return precio;
     }
-
+ @XmlElement(name = "precio")
     public void setPrecio(int precio) {
         this.precio = precio;
     }
@@ -63,7 +74,7 @@ public class Pizza {
     public ArrayList<Ingrediente> getListaIngredientes() {
         return listaIngredientes;
     }
-
+ @XmlElement(name = "listaIngredientes")
     public void setListaIngredientes(ArrayList<Ingrediente> listaIngredientes) {
         this.listaIngredientes = listaIngredientes;
     }
@@ -71,7 +82,7 @@ public class Pizza {
     public int getCantidad() {
         return cantidad;
     }
-
+ @XmlElement(name = "cantidad")
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
@@ -79,11 +90,20 @@ public class Pizza {
     public int getPizzaID() {
         return pizzaID;
     }
-
+ @XmlElement(name = "pizzaID")
     public void setPizzaID(int pizzaID) {
         this.pizzaID = pizzaID;
     }
-
+ public JSONObject toJSON() {
+        JSONObject r = new JSONObject();
+        r.put("nombre", getNombre());
+        r.put("tamanno", getTamanno());
+        r.put("precio", getPrecio());
+         r.put("listaIngredientes", getListaIngredientes());
+           r.put("cantidad", getCantidad());
+            r.put("pizzaID", getPizzaID());
+        return r;
+    }
    
     
     public Pizza() {

@@ -6,19 +6,20 @@ import java.util.Date;
 
 public class Orden {
 
-    public Orden(Date fecha, String estado, int idOrden, ArrayList<Pizza> listaPizzas, ArrayList<Producto> listaProductos) {
-        this.fecha = fecha;
+    public Orden(String fPago, String estado, int idOrden, ArrayList<Pizza> listaPizzas, ArrayList<Producto> listaProductos) {
+        this.fPago = fPago;
+        this.fecha = new Date();
         this.estado = estado;
         this.idOrden = idOrden;
         this.listaPizzas = listaPizzas;
         this.listaProductos = listaProductos;
     }
-     public Orden() {
-        this.fecha = new Date();
-        this.estado = "";
-        this.idOrden = 0;
-        this.listaPizzas = new ArrayList<>();
-        this.listaProductos = new ArrayList<>();
+    public String getfPago() {
+        return fPago;
+    }
+
+    public void setfPago(String fPago) {
+        this.fPago = fPago;
     }
 
     public Date getFecha() {
@@ -62,7 +63,19 @@ public class Orden {
     }
 
    
+     public Orden() {
+        this.fecha = new Date();
+        this.estado = "";
+        this.idOrden = 0;
+        this.listaPizzas = new ArrayList<>();
+        this.listaProductos = new ArrayList<>();
+        this.fPago = "";
+    }
+
     
+
+   
+    private String fPago;
     private Date fecha;
     private String estado;
     private int idOrden;

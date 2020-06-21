@@ -35,4 +35,5 @@
 </nav>
 <script>
       var carritoCompras = [];
+      var carritoProductos = [];
     </script>

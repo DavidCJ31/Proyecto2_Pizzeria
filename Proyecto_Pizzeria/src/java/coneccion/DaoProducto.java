@@ -39,4 +39,26 @@ public class DaoProducto {
         }
         return r;
     }
+
+    public static ArrayList<Producto> obtenerListaProductos(Connection cnx) {
+        ArrayList<Producto> res = new ArrayList<>();
+        try (PreparedStatement stm = cnx.prepareStatement(IMEC_Usuario.LISTARPRODUCTO.obtenerComando());) {
+            stm.clearParameters();
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    Producto r = (new Producto(
+                            rs.getInt("precio"),
+                            rs.getString("descripcion"),
+                            rs.getInt("ID"),
+                            0,
+                            rs.getString("nombre")
+                    ));
+                    res.add(r);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return res;
+    }
 }
