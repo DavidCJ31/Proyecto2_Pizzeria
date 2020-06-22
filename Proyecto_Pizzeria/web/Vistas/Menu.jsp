@@ -88,10 +88,7 @@
                             <td style=""><%=c.getNombre()%></td>
                             <td>
                                 <input name="" id="<%=i + "p"%>" style="display:none;" value="<%=pizzaJson(c, "personal")%>">
-                                <button type="submit" onclick="agregarPizzaCarrito('<%=i + "p"%>')" class="btn btn-default">
-                                    <img  src="../assets/imagenes/add.png"  style=" width: 50px; height: 50px;">
-                                </button>
-
+                                <button type="submit" onclick="agregarPizzaCarrito('<%=i + "p"%>')" class="btn btn-default"><img  src="../assets/imagenes/add.png"  style=" width: 50px; height: 50px;"></button>
                             </td>
                             <td >
                                 <input name="" id="<%=i + "g"%>" style="display:none;" value="<%=pizzaJson(c, "grande")%>">

@@ -30,12 +30,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 import com.google.gson.Gson;
+
 /**
  *
  * @author metal
  */
 @MultipartConfig
-@WebServlet(name = "ServletUsuario", urlPatterns = {"/logIn", "/insertarOrden", "/Regisistrar", "/CrearPizza","/EliminarPizza","/ModificarUsuario"})
+@WebServlet(name = "ServletUsuario", urlPatterns = {"/logIn", "/insertarOrden", "/Regisistrar", "/CrearPizza", "/EliminarPizza", "/ModificarUsuario"})
 public class ServletUsuario extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -59,7 +60,7 @@ public class ServletUsuario extends HttpServlet {
             this.modificarUsuario(request, response);
         }
     }
-    
+
     private Optional<String> encoding;
 
     private String toUTF8String(String s) throws UnsupportedEncodingException {
@@ -100,24 +101,24 @@ public class ServletUsuario extends HttpServlet {
             }
             int k = 0;
             while (request.getParameter("producto" + k) != null) {
-               // Producto pr = new Gson().fromJson(toUTF8String(request.getParameter("producto" + k)), Producto.class);
+                // Producto pr = new Gson().fromJson(toUTF8String(request.getParameter("producto" + k)), Producto.class);
                 JSONObject obj2 = new JSONObject(toUTF8String(request.getParameter("producto" + k)));
                 Producto pr = new Producto(obj2.getInt("precio"), obj2.getString("descripcion"), obj2.getInt("id"), obj2.getString("nombre"));
                 listaPR.add(pr);
                 k++;
             }
         }
-        Usuario us = (Usuario)request.getSession(true).getAttribute("Usuario");
-        Orden ordenGuardar = new Orden(pago, "En Preparacion", us.getListaOrdenes().size()+1, listaP, listaPR);
+        Usuario us = (Usuario) request.getSession(true).getAttribute("Usuario");
+        Orden ordenGuardar = new Orden(pago, "En Preparacion", us.getListaOrdenes().size() + 1, listaP, listaPR);
         us.getListaOrdenes().add(ordenGuardar);
         ArrayList<Pizza> listaPi = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas");
         ArrayList<Producto> listProduct = (ArrayList<Producto>) request.getSession().getAttribute("listaProductos");
         boolean insertado = Model.insertarOrdenDeUsuario(ordenGuardar, us, listaPi, listProduct);
-        if(insertado){
-        RequestDispatcher dispatcher = request.getRequestDispatcher(
-                        "/Vistas/Menu.jsp");
-                dispatcher.forward(request, response);
-        }else{//error
+        if (insertado) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher(
+                    "/Vistas/Menu.jsp");
+            dispatcher.forward(request, response);
+        } else {//error
             RequestDispatcher dispatcher = request.getRequestDispatcher(
                     "/Vistas/VistaPrincipal.jsp");
             dispatcher.forward(request, response);
@@ -125,7 +126,7 @@ public class ServletUsuario extends HttpServlet {
 
     }
 
-   protected void logIn(HttpServletRequest request,
+    protected void logIn(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         String clave = request.getParameter("password");
@@ -143,6 +144,12 @@ public class ServletUsuario extends HttpServlet {
             if (rol.equals("Cliente")) {
                 RequestDispatcher dispatcher = request.getRequestDispatcher(
                         "/Vistas/Menu.jsp");
+                dispatcher.forward(request, response);
+            } else {
+                ArrayList<Orden> listaOrden = Model.instance().ObtenerListaOrden();
+                request.getSession().setAttribute("listaOrden", listaOrden);
+                RequestDispatcher dispatcher = request.getRequestDispatcher(
+                        "/Vistas/VistaAdministrador.jsp");
                 dispatcher.forward(request, response);
             }
         } else {
@@ -176,7 +183,7 @@ public class ServletUsuario extends HttpServlet {
         String nombre = request.getParameter("nombre");
         ArrayList<Ingrediente> listaI = (ArrayList<Ingrediente>) request.getSession().getAttribute("listaIngrediente");
         ArrayList<Ingrediente> listaTem = new ArrayList<>();
-        ArrayList<Pizza> listaPP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas"); 
+        ArrayList<Pizza> listaPP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas");
         int j = 0;
         for (Ingrediente i : listaI) {
 
@@ -186,11 +193,11 @@ public class ServletUsuario extends HttpServlet {
             }
             j++;
         }
-        Pizza pizza = new Pizza(nombre, listaTem, listaPP.size() + 1);        
+        Pizza pizza = new Pizza(nombre, listaTem, listaPP.size() + 1);
         Model.instance().AgregarPizza(pizza);
-            ArrayList<Pizza> listaPizzas = Model.instance().ObtenerListaPizzas();
-            request.getSession().setAttribute("listaPizzas", listaPizzas);
-            RequestDispatcher dispatcher = request.getRequestDispatcher(
+        ArrayList<Pizza> listaPizzas = Model.instance().ObtenerListaPizzas();
+        request.getSession().setAttribute("listaPizzas", listaPizzas);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(
                 "/Vistas/Menu.jsp");
         dispatcher.forward(request, response);
     }
@@ -199,7 +206,7 @@ public class ServletUsuario extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         int numC = Integer.parseInt(request.getParameter("PizzaID"));
-       ArrayList<Pizza> listaP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas"); 
+        ArrayList<Pizza> listaP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas");
         for (int i = 0; i < listaP.size(); i++) {
             if (listaP.get(i).getPizzaID() == numC) {
                 Model.instance().EliminarPizza(listaP.get(i).getPizzaID());
@@ -211,16 +218,16 @@ public class ServletUsuario extends HttpServlet {
                 "/Vistas/Menu.jsp");
         dispatcher.forward(request, response);
     }
-    
+
     protected void modificarUsuario(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        
+
         String id = request.getParameter("id");
         String direccion = request.getParameter("direccion");
         String telefono = request.getParameter("telefono");
         String contrasena = request.getParameter("contrasena");
-        
+
         Usuario usuario;
         usuario = (Usuario) request.getSession(true).getAttribute("Usuario");
         usuario.setClave_acceso(contrasena);
@@ -232,9 +239,7 @@ public class ServletUsuario extends HttpServlet {
                 "/Vistas/Menu.jsp");
         dispatcher.forward(request, response);
     }
-    
-    
-    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -250,8 +255,10 @@ public class ServletUsuario extends HttpServlet {
 
         try {
             processRequest(request, response);
+
         } catch (SQLException ex) {
-            Logger.getLogger(ServletUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletUsuario.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -268,8 +275,10 @@ public class ServletUsuario extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+
         } catch (SQLException ex) {
-            Logger.getLogger(ServletUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletUsuario.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 

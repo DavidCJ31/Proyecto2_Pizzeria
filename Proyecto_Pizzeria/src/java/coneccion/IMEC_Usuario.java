@@ -34,7 +34,9 @@ public enum IMEC_Usuario {
     INSERTARINGREDIENTESADICIONALES("INSERT INTO adicionales(pizza, ingredientes, orden) VALUES(?,?,?); "),
     INSERTARORDEN("INSERT INTO orden(id, estado, usuario, formaPago) VALUES(?,?,?,?); "),
     INSERTARUSUARIO("INSERT INTO usuario(id, tipo, password, nombre, apellido1, apellido2, direccion, telefono) VALUES(?,?,?,?,?,?,?,?); "),
-    MODIFICARUSUARIO("UPDATE  usuario SET password=?, direccion=?, telefono=? WHERE id=?;");
+    MODIFICARUSUARIO("UPDATE  usuario SET password=?, direccion=?, telefono=? WHERE id=?;"),
+    LISTAORDENES("SELECT * FROM orden;"),
+    MODIFICARORDEN("UPDATE  orden SET estado=? WHERE id=?;");
     
     IMEC_Usuario(String comando) {
         this.comando = comando;

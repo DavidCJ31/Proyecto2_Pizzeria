@@ -1,8 +1,9 @@
-
 package clases;
 
 import java.util.ArrayList;
 import java.util.Date;
+import javax.xml.bind.annotation.XmlElement;
+import org.json.JSONObject;
 
 public class Orden {
 
@@ -14,10 +15,12 @@ public class Orden {
         this.listaPizzas = listaPizzas;
         this.listaProductos = listaProductos;
     }
+
     public String getfPago() {
         return fPago;
     }
 
+    @XmlElement(name = "fPago")
     public void setfPago(String fPago) {
         this.fPago = fPago;
     }
@@ -26,6 +29,7 @@ public class Orden {
         return fecha;
     }
 
+    @XmlElement(name = "fecha")
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
@@ -34,6 +38,7 @@ public class Orden {
         return estado;
     }
 
+    @XmlElement(name = "estado")
     public void setEstado(String estado) {
         this.estado = estado;
     }
@@ -42,6 +47,7 @@ public class Orden {
         return idOrden;
     }
 
+    @XmlElement(name = "idOrden")
     public void setIdOrden(int idOrden) {
         this.idOrden = idOrden;
     }
@@ -50,6 +56,7 @@ public class Orden {
         return listaPizzas;
     }
 
+    @XmlElement(name = "listaPizzas")
     public void setListaPizzas(ArrayList<Pizza> listaPizzas) {
         this.listaPizzas = listaPizzas;
     }
@@ -58,12 +65,12 @@ public class Orden {
         return listaProductos;
     }
 
+    @XmlElement(name = "listaProductos")
     public void setListaProductos(ArrayList<Producto> listaProductos) {
         this.listaProductos = listaProductos;
     }
 
-   
-     public Orden() {
+    public Orden() {
         this.fecha = new Date();
         this.estado = "";
         this.idOrden = 0;
@@ -72,9 +79,22 @@ public class Orden {
         this.fPago = "";
     }
 
-    
+    public JSONObject toJSON() {
+        JSONObject r = new JSONObject();
+        r.put("idOrden", getIdOrden());
+        r.put("fecha", getFecha());
+        r.put("estado", getEstado());
+        r.put("fPago", getfPago());
+        r.put("listaPizzas", getListaPizzas());
+        r.put("listaProductos", getListaProductos());
+        return r;
+    }
 
-   
+    @Override
+    public String toString() {
+        return toJSON().toString(4);
+    }
+
     private String fPago;
     private Date fecha;
     private String estado;
