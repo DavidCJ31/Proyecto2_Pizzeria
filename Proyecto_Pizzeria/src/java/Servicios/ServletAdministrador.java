@@ -6,9 +6,13 @@
 package Servicios;
 
 import Modelo.Model;
-import com.google.gson.Gson;
+import clases.Ingrediente;
+import clases.Pizza;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -29,6 +33,9 @@ public class ServletAdministrador extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         if ("ModificarOrden".equals(request.getParameter("instruccion"))) {
             this.cambiarEstado(request, response);
+        }
+        if ("CrearPizza".equals(request.getParameter("instruccion"))) {
+            this.AgregarPizza(request, response);
         }
     }
 
@@ -85,6 +92,32 @@ public class ServletAdministrador extends HttpServlet {
             }
             out.println(r.toString(4));
         }
+    }
+
+    protected void AgregarPizza(HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException {
+        String nombre = request.getParameter("nombre");
+        ArrayList<Ingrediente> listaI = (ArrayList<Ingrediente>) request.getSession().getAttribute("listaIngrediente");
+        ArrayList<Ingrediente> listaTem = new ArrayList<>();
+        ArrayList<Pizza> listaPP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas");
+        int j = 0;
+        for (Ingrediente i : listaI) {
+
+            String id = request.getParameter("ingrediente" + j);
+            if (id != null) {
+                listaTem.add(i);
+            }
+            j++;
+        }
+        Pizza pizza = new Pizza(nombre, listaTem, listaPP.size() + 1);
+        pizza.setTamanno(request.getParameter("tamano"));
+        Model.instance().AgregarPizza(pizza);
+        ArrayList<Pizza> listaPizzas = Model.instance().ObtenerListaPizzas();
+        request.getSession().setAttribute("listaPizzas", listaPizzas);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(
+                "/Vistas/ModificarPizzas.jsp");
+        dispatcher.forward(request, response);
     }
 
 }

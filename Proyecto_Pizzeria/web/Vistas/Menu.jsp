@@ -20,11 +20,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Menu</title>		
         <%@include file="/Vistas/Head.jsp"%>  
-       <%@include file="/Vistas/Heder.jsp"%>  
+        <%@include file="/Vistas/Heder.jsp"%>  
 
     </head>
     <body>
-         
+
         <%
             Usuario us = (Usuario) request.getSession().getAttribute("Usuario");
             ArrayList<Pizza> listaP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas");
@@ -42,7 +42,6 @@
                             <th scope="col">Personal</th>
                             <th scope="col">Grande</th>
                             <th scope="col">Familiar</th>
-                            <th scope="col">Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -98,70 +97,11 @@
                                 <input name="" id="<%=i + "f"%>" style="display:none;" value="<%=pizzaJson(c, "familiar")%>">
                                 <button  type="submit" onclick="agregarPizzaCarrito('<%=i + "f"%>')" class="btn btn-default"><img  src="../assets/imagenes/add.png"  style=" width: 50px; height: 50px;"></button>
                             </td>
-                            <td width="200">
-                                <form action="EliminarPizza" >
-                                    <input name="PizzaID" id="PizzaID" style="display:none;" value="<%=c.getPizzaID()%>">
-                                    <button  type="submit" class="btn btn-default"><img  src="../assets/imagenes/delete.png"  style=" width: 50px; height: 50px;"></button>
-                                </form>
-                            </td>
                         </tr>
                         <%}%>
 
                     </tbody>
                 </table>
-                <button id="marg" type="button" data-toggle="modal" data-target="#Moda" class="btn btn-warning" >Agregar Pizza</button>
-            </div>
-        </div>
-        <div class="modal fade" id="Moda"   tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content"  id="center">
-                    <h5 class="modal-title" id="centro">Agregar Pizza</h5>
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form action="CrearPizza" id="PerfilTable">
-                        <div class="modal-body jumbotron" id="modBody">
-                            <div class="text-center border border-light p-5 " >
-                                <div class="form-row mb-4">
-                                    <div class="col">
-                                        <!-- First name -->
-
-                                        <input type="text" id="defaultRegisterFormFirstName" name="nombre" class="form-control" placeholder="Nombre" required >
-                                    </div>
-                                </div>
-                                <div class="form-row mb-4">
-                                    <div class="col">
-                                        <h4 id="h4">Ingredientes: </h4>
-                                    </div>
-                                </div>
-                                <%
-                                    int j = 0;
-
-                                    for (Ingrediente k : listaI) {
-                                        j++;
-                                %>
-                                <div class="form-row mb-4">
-                                    <div id="logBanco" class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <div class="col">
-                                                <input  type="checkbox" name="ingrediente<%=j - 1%>">
-                                            </div>
-                                            <div class="col">
-                                                <label id="marg"><%=k.getNombre()%></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <%}%>
-                            </div>
-                            <!-- Default form register -->
-                        </div>
-                        <button type="button" class="btn btn-danger"  data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-warning" >Aceptar</button>
-                    </form>
-                </div>
             </div>
         </div>
     </body>
@@ -200,14 +140,14 @@
     divCarro = document.getElementById("carritoIconDiv");
     var formC = document.createElement("form");
     formC.setAttribute("action", "/Vistas/OrdenConfirmar.jsp");
-     var inpC = document.createElement("input");
-     inpC.setAttribute("name", "carroInput");
-     inpC.setAttribute("id", "carroInput");
-     inpC.setAttribute("style", "display:none;");
-     var botC = document.createElement("button");
-     botC.setAttribute("onclick", "enviarCarrito()");
-     botC.setAttribute("type", "submit");
-     botC.setAttribute("class", "btn btn-warning");
+    var inpC = document.createElement("input");
+    inpC.setAttribute("name", "carroInput");
+    inpC.setAttribute("id", "carroInput");
+    inpC.setAttribute("style", "display:none;");
+    var botC = document.createElement("button");
+    botC.setAttribute("onclick", "enviarCarrito()");
+    botC.setAttribute("type", "submit");
+    botC.setAttribute("class", "btn btn-warning");
     var imagen = document.createElement("img");
     imagen.setAttribute("src", "../assets/imagenes/carrito.png");
     imagen.setAttribute("style", "width: 50px; height: 50px; float: left;");
@@ -215,7 +155,7 @@
     numCarro.textContent = carritoCompras.length;
     numCarro.setAttribute("id", "numCarro");
     numCarro.setAttribute("style", "float:left");
-     formC.setAttribute("style", "float:left");
+    formC.setAttribute("style", "float:left");
     botC.appendChild(imagen);
     formC.appendChild(inpC);
     formC.appendChild(botC);
@@ -231,9 +171,9 @@
         numCarro = document.getElementById("numCarro");
         numCarro.textContent = carritoCompras.length;
     }
-    function enviarCarrito(){
+    function enviarCarrito() {
         input = document.getElementById("carroInput");
-        input.value ='[' +  carritoCompras + ']';
+        input.value = '[' + carritoCompras + ']';
     }
 
 </script>

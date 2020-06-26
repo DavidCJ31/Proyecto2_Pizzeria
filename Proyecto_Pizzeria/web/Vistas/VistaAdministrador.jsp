@@ -12,6 +12,7 @@
         <title>Administrador</title>		
         <%@include file="/Vistas/Head.jsp"%>    
         <script src="../assets/js/scriptAdministrador.js" type="text/javascript"></script>
+        <%@include file="menuAdministrador.jsp"%>   
     </head>
     <body>
 
@@ -19,27 +20,9 @@
 
         <%
             Usuario us = (Usuario) request.getSession().getAttribute("Usuario");
-            ArrayList<Pizza> listaP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas");
             ArrayList<Orden> listaOrden = (ArrayList<Orden>) request.getSession().getAttribute("listaOrden");
         %>
 
-        <nav class="navbar justify-content-between">
-            <div  class="dropdown show">
-                <div id="dropHeder">
-                    <button class="btn btn-secondary dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Usuario
-                    </button>
-                    <label id="usuario"> 
-                    </label>
-                    <div class="dropdown-menu" id="showDrop">
-                        <a href="Vistas/Perfil.jsp"><button class="dropdown-item">Perfil</button></a>
-                        <form action="Vistas/VistaPrincipal.jsp" >
-                            <button type="submit" class="dropdown-item">Salir</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </nav>
         <div id="fondoTabla">
             <div>
                 <table class="table table-hover  table-light">

@@ -24,3 +24,11 @@ function getJSON(url, data, callback) {
 function procesarRespuesta(datos) {
     console.log(datos);
 }
+
+function formatoMoneda(valor) {
+
+    // https://www.fileformat.info/info/unicode/char/20a1/index.htm
+    // 20A1(16) = 8353(10)
+
+    return String.fromCharCode(8353) + numeral(valor).format(" 0,0.00");
+}

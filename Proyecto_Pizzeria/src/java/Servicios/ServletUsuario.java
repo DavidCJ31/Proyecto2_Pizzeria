@@ -216,7 +216,7 @@ public class ServletUsuario extends HttpServlet {
         }
         request.getSession().setAttribute("listaPizzas", listaP);
         RequestDispatcher dispatcher = request.getRequestDispatcher(
-                "/Vistas/Menu.jsp");
+                "/Vistas/ModificarPizzas.jsp");
         dispatcher.forward(request, response);
     }
 
