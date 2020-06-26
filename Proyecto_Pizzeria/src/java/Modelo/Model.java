@@ -99,4 +99,11 @@ public class Model {
         return DaoOrden.insertarOrden(guardarO, us, listaPizza, listaProducto, conn);
     }
 
+    public static boolean actualizarOrdenesEnPreparacion() {
+        return DaoOrden.actualizarOrdenesEnPreparacion(conn);
+    }
+
+    public static boolean ModificarOrdenACamino(int us) {
+        return DaoOrden.modificarOrden(us, conn);
+    }
 }

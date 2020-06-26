@@ -146,6 +146,7 @@ public class ServletUsuario extends HttpServlet {
                         "/Vistas/Menu.jsp");
                 dispatcher.forward(request, response);
             } else {
+                Model.instance().actualizarOrdenesEnPreparacion();
                 ArrayList<Orden> listaOrden = Model.instance().ObtenerListaOrden();
                 request.getSession().setAttribute("listaOrden", listaOrden);
                 RequestDispatcher dispatcher = request.getRequestDispatcher(

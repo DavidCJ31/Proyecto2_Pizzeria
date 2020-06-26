@@ -35,7 +35,8 @@ public enum IMEC_Usuario {
     INSERTARORDEN("INSERT INTO orden(id, estado, usuario, formaPago) VALUES(?,?,?,?); "),
     INSERTARUSUARIO("INSERT INTO usuario(id, tipo, password, nombre, apellido1, apellido2, direccion, telefono) VALUES(?,?,?,?,?,?,?,?); "),
     MODIFICARUSUARIO("UPDATE  usuario SET password=?, direccion=?, telefono=? WHERE id=?;"),
-    LISTAORDENES("SELECT * FROM orden;"),
+    LISTA_ORDENES_EN_PREPARACION("SELECT * FROM orden WHERE estado='En preparacion';"),
+    ACTUALIZAR_ORDENES_EN_PREPARACION("UPDATE orden SET estado=? WHERE estado=?;"),
     MODIFICARORDEN("UPDATE  orden SET estado=? WHERE id=?;");
     
     IMEC_Usuario(String comando) {

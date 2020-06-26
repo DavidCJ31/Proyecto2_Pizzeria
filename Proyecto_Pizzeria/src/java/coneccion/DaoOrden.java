@@ -143,9 +143,9 @@ public class DaoOrden {
         return respuesta;
     }
 
-        public static ArrayList<Orden> obtenerListaOrdenes(Connection cnx) {
+    public static ArrayList<Orden> obtenerListaOrdenes(Connection cnx) {
         ArrayList<Orden> r = new ArrayList<>();
-        try (PreparedStatement stm = cnx.prepareStatement(IMEC_Usuario.LISTAORDENES.obtenerComando());) {
+        try (PreparedStatement stm = cnx.prepareStatement(IMEC_Usuario.LISTA_ORDENES_EN_PREPARACION.obtenerComando());) {
             stm.clearParameters();
             try (ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
@@ -162,5 +162,32 @@ public class DaoOrden {
         }
         return r;
     }
-    
+
+    public static boolean actualizarOrdenesEnPreparacion(Connection cnx) {
+        try (PreparedStatement stm = cnx.prepareStatement(IMEC_Usuario.ACTUALIZAR_ORDENES_EN_PREPARACION.obtenerComando());) {
+            stm.clearParameters();
+            stm.setString(1, String.valueOf("Entregado"));
+            stm.setString(2, String.valueOf("En camino"));
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+
+    }
+
+    public static boolean modificarOrden(int idOrden, Connection conn) {
+        try (PreparedStatement stm = conn.prepareStatement(IMEC_Usuario.MODIFICARORDEN.obtenerComando());) {
+            stm.clearParameters();
+            stm.setString(1, String.valueOf("En camino"));
+            stm.setString(2, String.valueOf(idOrden));
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+
 }

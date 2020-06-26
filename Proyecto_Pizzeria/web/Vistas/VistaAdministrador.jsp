@@ -11,9 +11,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Administrador</title>		
         <%@include file="/Vistas/Head.jsp"%>    
-
+        <script src="../assets/js/scriptAdministrador.js" type="text/javascript"></script>
     </head>
     <body>
+
+
+
         <%
             Usuario us = (Usuario) request.getSession().getAttribute("Usuario");
             ArrayList<Pizza> listaP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas");
@@ -47,15 +50,17 @@
                             <th scope="col">Estado</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="tablaOrdenes">
                         <%
                             for (Orden c : listaOrden) {
                         %>
 
                         <tr>
-                            <th scope="row"><%=c.getIdOrden()%></th>
-                            <td><%=c.getFecha()%></td>
-                            <td></td>
+                            <th scope="row" id="<%=c.getIdOrden() + "-idOrden"%>"><%=c.getIdOrden()%></th>
+                            <td id="<%=c.getIdOrden() + "-fechaOrden"%>"><%=c.getFecha()%></td>
+                            <td id="<%=c.getIdOrden() + "-idEstadoOrden"%>"><%=c.getEstado()%></td>
+                            <td><button type="submit" onclick="CambiarEstado('<%=c.getIdOrden()%>')" class="btn btn-primary">Cambiar Estado</button></td>
+
                         </tr>
                         <%}%>
                     </tbody>
@@ -63,4 +68,4 @@
             </div>
         </div>
     </body>
-</html> 
+</html>
