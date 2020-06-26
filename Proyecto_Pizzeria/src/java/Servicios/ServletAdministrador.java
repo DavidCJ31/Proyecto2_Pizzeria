@@ -10,7 +10,6 @@ import clases.Ingrediente;
 import clases.Pizza;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,6 +35,12 @@ public class ServletAdministrador extends HttpServlet {
         }
         if ("CrearPizza".equals(request.getParameter("instruccion"))) {
             this.AgregarPizza(request, response);
+        }
+        if ("EliminarPizza".equals(request.getParameter("instruccion"))) {
+            this.eliminarPizza(request, response);
+        }
+        if ("ActualizarPizza".equals(request.getParameter("instruccion"))) {
+            this.actualizarPizza(request, response);
         }
     }
 
@@ -94,9 +99,7 @@ public class ServletAdministrador extends HttpServlet {
         }
     }
 
-    protected void AgregarPizza(HttpServletRequest request,
-            HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void AgregarPizza(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String nombre = request.getParameter("nombre");
         ArrayList<Ingrediente> listaI = (ArrayList<Ingrediente>) request.getSession().getAttribute("listaIngrediente");
         ArrayList<Ingrediente> listaTem = new ArrayList<>();
@@ -110,13 +113,60 @@ public class ServletAdministrador extends HttpServlet {
             }
             j++;
         }
-        Pizza pizza = new Pizza(nombre, listaTem, listaPP.size() + 1);
+        int PizzaId = Integer.parseInt(request.getParameter("PizzaID"));
+        Pizza pizza = new Pizza(nombre, listaTem, PizzaId);
         pizza.setTamanno(request.getParameter("tamano"));
         Model.instance().AgregarPizza(pizza);
         ArrayList<Pizza> listaPizzas = Model.instance().ObtenerListaPizzas();
         request.getSession().setAttribute("listaPizzas", listaPizzas);
         RequestDispatcher dispatcher = request.getRequestDispatcher(
                 "/Vistas/ModificarPizzas.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    protected void eliminarPizza(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int numC = Integer.parseInt(request.getParameter("PizzaID"));
+        ArrayList<Pizza> listaP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas");
+        for (int i = 0; i < listaP.size(); i++) {
+            if (listaP.get(i).getPizzaID() == numC) {
+                Model.instance().EliminarPizza(listaP.get(i).getPizzaID());
+                listaP.remove(i);
+            }
+        }
+        request.getSession().setAttribute("listaPizzas", listaP);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(
+                "/Vistas/ModificarPizzas.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void actualizarPizza(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int PizzaId = Integer.parseInt(request.getParameter("inputIdPizza2"));
+        ArrayList<Pizza> listaP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas");
+        for (int i = 0; i < listaP.size(); i++) {
+            if (listaP.get(i).getPizzaID() == PizzaId) {
+                Model.instance().EliminarPizza(listaP.get(i).getPizzaID());
+                listaP.remove(i);
+            }
+        }
+        String nombre = request.getParameter("inputNombrePizza");
+        ArrayList<Ingrediente> listaI = (ArrayList<Ingrediente>) request.getSession().getAttribute("listaIngrediente");
+        ArrayList<Ingrediente> listaTem = new ArrayList<>();
+        int j = 0;
+        for (Ingrediente i : listaI) {
+
+            String id = request.getParameter("ingredienteModificar" + j);
+            if (id != null) {
+                listaTem.add(i);
+            }
+            j++;
+        }
+        Pizza pizza = new Pizza(nombre, listaTem, PizzaId);
+        pizza.setTamanno(request.getParameter("inputTamanoPizza"));
+        pizza.setPrecio(Integer.parseInt(request.getParameter("inputPrecioPizza")));
+        Model.instance().AgregarPizza(pizza);
+        ArrayList<Pizza> listaPizzas = Model.instance().ObtenerListaPizzas();
+        request.getSession().setAttribute("listaPizzas", listaPizzas);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/ModificarPizzas.jsp");
         dispatcher.forward(request, response);
     }
 

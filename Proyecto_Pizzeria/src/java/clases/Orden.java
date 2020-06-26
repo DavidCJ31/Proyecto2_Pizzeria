@@ -1,7 +1,8 @@
 package clases;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import javax.xml.bind.annotation.XmlElement;
 import org.json.JSONObject;
 
@@ -9,7 +10,7 @@ public class Orden {
 
     public Orden(String fPago, String estado, int idOrden, ArrayList<Pizza> listaPizzas, ArrayList<Producto> listaProductos) {
         this.fPago = fPago;
-        this.fecha = new Date();
+        this.fecha = new Date(Calendar.getInstance().getTime().getTime());
         this.estado = estado;
         this.idOrden = idOrden;
         this.listaPizzas = listaPizzas;
@@ -71,7 +72,7 @@ public class Orden {
     }
 
     public Orden() {
-        this.fecha = new Date();
+        this.fecha = new Date(Calendar.getInstance().getTime().getTime());
         this.estado = "";
         this.idOrden = 0;
         this.listaPizzas = new ArrayList<>();

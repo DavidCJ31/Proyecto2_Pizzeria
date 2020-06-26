@@ -11,6 +11,7 @@ import clases.Pizza;
 import clases.Producto;
 import clases.Usuario;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -59,7 +60,7 @@ public class DaoOrden {
     public static boolean insertarOrden(Orden guardarO, Usuario us, ArrayList<Pizza> listaPizza, ArrayList<Producto> listaProducto, Connection cnx) {
         try (PreparedStatement stm = cnx.prepareStatement(IMEC_Usuario.INSERTARORDEN.obtenerComando());) {
             stm.clearParameters();
-            stm.setString(1, String.valueOf(guardarO.getIdOrden()));
+            stm.setInt(1, guardarO.getIdOrden());
             stm.setString(2, String.valueOf(guardarO.getEstado()));
             stm.setString(3, String.valueOf(us.getId()));
             stm.setString(4, String.valueOf(guardarO.getfPago()));
@@ -190,4 +191,19 @@ public class DaoOrden {
         }
     }
 
+        public static int obtenerUltimoRegistrado(Connection cnx) {
+        int i = 0;
+        try (PreparedStatement stm = cnx.prepareStatement(IMEC_Usuario.LISTA_ORDENES_EN_PREPARACION.obtenerComando());) {
+            stm.clearParameters();
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    i = rs.getInt("id");
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return i;
+    }
+    
 }

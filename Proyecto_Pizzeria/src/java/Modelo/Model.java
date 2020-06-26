@@ -106,4 +106,9 @@ public class Model {
     public static boolean ModificarOrdenACamino(int us) {
         return DaoOrden.modificarOrden(us, conn);
     }
+
+    public static int obtenerUltimoRegistrado() {
+        return DaoOrden.obtenerUltimoRegistrado(conn);
+    }
+
 }

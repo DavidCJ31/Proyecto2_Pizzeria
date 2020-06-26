@@ -14,6 +14,7 @@
         <%@include file="/Vistas/Head.jsp"%>    
         <script src="../assets/js/scriptAdministrador.js" type="text/javascript"></script>
         <%@include file="menuAdministrador.jsp"%>   
+        <%@include file="popUpModificarPizza.jsp"%>
     </head>
     <body>
 
@@ -21,8 +22,8 @@
 
         <%
             Usuario us = (Usuario) request.getSession().getAttribute("Usuario");
-            ArrayList<Pizza> listaP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas");
-            ArrayList<Ingrediente> listaI = (ArrayList<Ingrediente>) request.getSession().getAttribute("listaIngrediente");
+            //ArrayList<Pizza> listaP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas");
+            //ArrayList<Ingrediente> listaI = (ArrayList<Ingrediente>) request.getSession().getAttribute("listaIngrediente");
         %>
 
         <div id="fondoTabla">
@@ -44,7 +45,7 @@
                         %>
 
                         <tr style="height: 10px">
-                            <td> <%=c.getPizzaID()%></td>
+                            <td id="<%=c.getPizzaID() + "-idPizza"%>"> <%=c.getPizzaID()%></td>
                             <td >
                                 <button  type="button" data-toggle="modal" data-target="#Moda<%= c.getPizzaID()%>" class="btn btn-default"><img  src="../assets/imagenes/PizzaLogo.png"  style=" width: 50px; height: 50px;"></button>
                                 <div class="modal fade" id="Moda<%= c.getPizzaID()%>"   tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
@@ -71,14 +72,18 @@
                                     </div>
                                 </div>
                             </td>
-                            <td><%=c.getNombre()%></td>
-                            <td><%=c.getTamanno()%></td>
-                            <td><%=c.getPrecio()%></td>
+                            <td id="<%=c.getPizzaID() + "-nombrePizza"%>"><%=c.getNombre()%></td>
+                            <td id="<%=c.getPizzaID() + "-tamanoPizza"%>"><%=c.getTamanno()%></td>
+                            <td id="<%=c.getPizzaID() + "-precioPizza"%>"><%=c.getPrecio()%></td>
                             <td width="200">
-                                <form action="EliminarPizza" >
+                                <form action="ServletAdministrador" >
+                                    <input type="hidden" name="instruccion" value="EliminarPizza">
                                     <input name="PizzaID" id="PizzaID" style="display:none;" value="<%=c.getPizzaID()%>">
                                     <button  type="submit" class="btn btn-default"><img  src="../assets/imagenes/delete.png"  style=" width: 50px; height: 50px;"></button>
                                 </form>
+                            </td>
+                            <td width="200">
+                                <button id="buttonModificar" type="button" data-toggle="modal" data-target="#ModificarPizza" class="btn btn-default" onclick="modificarPizza('<%= c.getPizzaID()%>')"><img  src="../assets/imagenes/modificarPizza.png"  style=" width: 50px; height: 50px;"></button>
                             </td>
                         </tr>
                         <%}%>
@@ -99,6 +104,7 @@
                     </div>
                     <form action="ServletAdministrador" id="PerfilTable">
                         <input type="hidden" name="instruccion" value="CrearPizza">
+                        <input type="hidden" name="PizzaID" value="<%=campoVacio(listaP)%>">
                         <div class="modal-body jumbotron" id="modBody">
                             <div class="text-center border border-light p-5 " >
                                 <div class="form-row mb-4">
@@ -122,7 +128,7 @@
                                     </div>
                                 </div>
                                 <%
-                                    int j = 0;
+                                    j = 0;
 
                                     for (Ingrediente k : listaI) {
                                         j++;
@@ -151,3 +157,22 @@
         </div>
     </body>
 </html>
+
+<%!
+    public int campoVacio(ArrayList<Pizza> listaP) {
+        int campoVacio = 0;
+        if (listaP.size() == 0) {
+            return 0;
+        } else {
+            for (Pizza p : listaP) {
+                if (p.getPizzaID() == campoVacio) {
+                    campoVacio++;
+                } else {
+                    return campoVacio;
+                }
+            }
+        }
+        return campoVacio;
+    }
+
+%>

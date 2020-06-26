@@ -2,7 +2,7 @@ function CambiarEstado(id) {
     var idOrden = document.getElementById(id + "-idOrden").innerText;
     var estadoOrden = document.getElementById(id + "-idEstadoOrden");
     var datos = new FormData();
-    if (estadoOrden.innerText === "En preparacion") {
+    if (estadoOrden.innerText === "En Preparacion") {
         datos.append("idOrden", idOrden);
         estadoOrden.innerText = "En camino";
     }
@@ -31,4 +31,17 @@ function formatoMoneda(valor) {
     // 20A1(16) = 8353(10)
 
     return String.fromCharCode(8353) + numeral(valor).format(" 0,0.00");
+}
+
+function modificarPizza(IdPizza) {
+    var idPizza = document.getElementById(IdPizza + "-idPizza").innerText;
+    var nombrePizza = document.getElementById(IdPizza + "-nombrePizza").innerText;
+    var tamanoPizza = document.getElementById(IdPizza + "-tamanoPizza").innerText;
+    var precioPizza = document.getElementById(IdPizza + "-precioPizza").innerText;
+
+    document.getElementById("inputIdPizza").value = idPizza;
+    document.getElementById("inputIdPizza2").setAttribute('value',idPizza);
+    document.getElementById("inputNombrePizza").value = nombrePizza;
+    document.getElementById("inputTamanoPizza").value = tamanoPizza;
+    document.getElementById("inputPrecioPizza").value = precioPizza;
 }

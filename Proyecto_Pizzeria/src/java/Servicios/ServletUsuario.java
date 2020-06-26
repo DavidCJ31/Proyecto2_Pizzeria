@@ -47,12 +47,6 @@ public class ServletUsuario extends HttpServlet {
         if (request.getServletPath().equals("/Regisistrar")) {
             this.Regisistrar(request, response);
         }
-        if (request.getServletPath().equals("/CrearPizza")) {
-            this.AgregarPizza(request, response);
-        }
-        if (request.getServletPath().equals("/EliminarPizza")) {
-            this.eliminarPizza(request, response);
-        }
         if (request.getServletPath().equals("/insertarOrden")) {
             this.insertarOrden(request, response);
         }
@@ -113,14 +107,13 @@ public class ServletUsuario extends HttpServlet {
         us.getListaOrdenes().add(ordenGuardar);
         ArrayList<Pizza> listaPi = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas");
         ArrayList<Producto> listProduct = (ArrayList<Producto>) request.getSession().getAttribute("listaProductos");
+        ordenGuardar.setIdOrden(Model.obtenerUltimoRegistrado()+1);
         boolean insertado = Model.insertarOrdenDeUsuario(ordenGuardar, us, listaPi, listProduct);
         if (insertado) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher(
-                    "/Vistas/Menu.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/Menu.jsp");
             dispatcher.forward(request, response);
         } else {//error
-            RequestDispatcher dispatcher = request.getRequestDispatcher(
-                    "/Vistas/VistaPrincipal.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/VistaPrincipal.jsp");
             dispatcher.forward(request, response);
         }
 
@@ -175,48 +168,6 @@ public class ServletUsuario extends HttpServlet {
         boolean ins = Model.instance().InsertarUsuario(ingresar);
         RequestDispatcher dispatcher = request.getRequestDispatcher(
                 "/Vistas/VistaPrincipal.jsp");
-        dispatcher.forward(request, response);
-    }
-
-    protected void AgregarPizza(HttpServletRequest request,
-            HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
-        String nombre = request.getParameter("nombre");
-        ArrayList<Ingrediente> listaI = (ArrayList<Ingrediente>) request.getSession().getAttribute("listaIngrediente");
-        ArrayList<Ingrediente> listaTem = new ArrayList<>();
-        ArrayList<Pizza> listaPP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas");
-        int j = 0;
-        for (Ingrediente i : listaI) {
-
-            String id = request.getParameter("ingrediente" + j);
-            if (id != null) {
-                listaTem.add(i);
-            }
-            j++;
-        }
-        Pizza pizza = new Pizza(nombre, listaTem, listaPP.size() + 1);
-        Model.instance().AgregarPizza(pizza);
-        ArrayList<Pizza> listaPizzas = Model.instance().ObtenerListaPizzas();
-        request.getSession().setAttribute("listaPizzas", listaPizzas);
-        RequestDispatcher dispatcher = request.getRequestDispatcher(
-                "/Vistas/Menu.jsp");
-        dispatcher.forward(request, response);
-    }
-
-    protected void eliminarPizza(HttpServletRequest request,
-            HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
-        int numC = Integer.parseInt(request.getParameter("PizzaID"));
-        ArrayList<Pizza> listaP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas");
-        for (int i = 0; i < listaP.size(); i++) {
-            if (listaP.get(i).getPizzaID() == numC) {
-                Model.instance().EliminarPizza(listaP.get(i).getPizzaID());
-                listaP.remove(i);
-            }
-        }
-        request.getSession().setAttribute("listaPizzas", listaP);
-        RequestDispatcher dispatcher = request.getRequestDispatcher(
-                "/Vistas/ModificarPizzas.jsp");
         dispatcher.forward(request, response);
     }
 

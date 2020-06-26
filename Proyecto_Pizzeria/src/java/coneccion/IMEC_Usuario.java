@@ -37,6 +37,7 @@ public enum IMEC_Usuario {
     MODIFICARUSUARIO("UPDATE  usuario SET password=?, direccion=?, telefono=? WHERE id=?;"),
     LISTA_ORDENES_EN_PREPARACION("SELECT * FROM orden WHERE estado='En preparacion';"),
     ACTUALIZAR_ORDENES_EN_PREPARACION("UPDATE orden SET estado=? WHERE estado=?;"),
+    ULTIMA_ORDEN("SELECT TOP 1 * FROM  orden ORDER BY id DESC;"),
     MODIFICARORDEN("UPDATE  orden SET estado=? WHERE id=?;");
     
     IMEC_Usuario(String comando) {
