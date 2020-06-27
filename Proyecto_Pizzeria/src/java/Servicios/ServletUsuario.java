@@ -78,6 +78,7 @@ public class ServletUsuario extends HttpServlet {
         String pago = "pagoEfectivo";
         ArrayList<Pizza> listaP = new ArrayList<>();
         ArrayList<Producto> listaPR = new ArrayList<>();
+        int total = 0;
         try (PrintWriter out = response.getWriter()) {
             StringBuilder r = new StringBuilder();
             int i = 0;
@@ -92,6 +93,7 @@ public class ServletUsuario extends HttpServlet {
                     dato.setNombre(obj3.getString("nombre"));
                     dato.setPrecio(obj3.getInt("precio"));
                     pizza.getListaIngredientes().add(dato);
+                    total = total + pizza.getPrecio();
                     j++;
                 }
                 i++;
@@ -102,12 +104,13 @@ public class ServletUsuario extends HttpServlet {
                 // Producto pr = new Gson().fromJson(toUTF8String(request.getParameter("producto" + k)), Producto.class);
                 JSONObject obj2 = new JSONObject(toUTF8String(request.getParameter("producto" + k)));
                 Producto pr = new Producto(obj2.getInt("precio"), obj2.getString("descripcion"), obj2.getInt("id"), obj2.getString("nombre"));
+                total = total + pr.getPrecio();
                 listaPR.add(pr);
                 k++;
             }
         }
         Usuario us = (Usuario) request.getSession(true).getAttribute("Usuario");
-        Orden ordenGuardar = new Orden(pago, "En Preparacion", us.getListaOrdenes().size() + 1, listaP, listaPR,100);
+        Orden ordenGuardar = new Orden(pago, "En Preparacion", us.getListaOrdenes().size() + 1, listaP, listaPR, total);
         us.getListaOrdenes().add(ordenGuardar);
         ArrayList<Pizza> listaPi = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas");
         ArrayList<Producto> listProduct = (ArrayList<Producto>) request.getSession().getAttribute("listaProductos");
