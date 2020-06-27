@@ -20,7 +20,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Orden</title>		
         <%@include file="/Vistas/Head.jsp"%>  
-        <%@include file="/Vistas/Heder.jsp"%>  
+        <%@include file="/Vistas/Heder.jsp"%>
+        <%@include file="/Vistas/popUpAgregarComentario.jsp"%>
     </head>        <%
         Usuario us = (Usuario) request.getSession().getAttribute("Usuario");
         ArrayList<Pizza> listaP = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas");
@@ -298,15 +299,15 @@
             getJSON('insertarOrden', dato);
         }
     }
-    
+
     function getJSON(url, data) {
-    fetch(url, {
-        method: 'POST',
-        body: data
-    }).then((result) => {
-        return result.json();
-    });
-}
+        fetch(url, {
+            method: 'POST',
+            body: data
+        }).then((result) => {
+            return result.json();
+        });
+    }
 
     function salvarCarrito() {
         inpPizz = document.getElementById("CarritoPizzas");
@@ -377,16 +378,16 @@
                 }
         );
     }
-    
-    function checkPago(){
+
+    function checkPago() {
         checkEfectivo = document.getElementById("efectivo").checked;
         checkTarjeta = document.getElementById("tarjeta").checked;
-        if(checkEfectivo===true){
+        if (checkEfectivo === true) {
             document.getElementById("tarjeta").checked = false;
         }
-        if(checkTarjeta===true){
+        if (checkTarjeta === true) {
             document.getElementById("efectivo").checked = false;
         }
-        
+
     }
 </script>

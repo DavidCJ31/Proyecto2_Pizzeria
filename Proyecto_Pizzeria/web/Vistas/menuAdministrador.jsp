@@ -22,7 +22,7 @@
             </form>
         </div>
         <div id="hederButton">
-            <form action="#">
+            <form action="Vistas/Comentarios.jsp">
                 <button  type="submit" class="btn btn-secondary" >
                     Comentarios
                 </button>

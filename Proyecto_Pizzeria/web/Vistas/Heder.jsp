@@ -1,4 +1,3 @@
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <nav class="navbar justify-content-between">
@@ -23,9 +22,11 @@
                 </button>
             </form>
         </div>
-       
+        <div id="hederButton">
+            <button data-toggle="modal"   type="button" data-target="#registrarComentario"  class="btn btn-secondary" >Agregar Comentario</button>
+        </div>
         <div id="carritoIconDiv">
-            
+
         </div>
 
 
@@ -34,6 +35,6 @@
     </div>
 </nav>
 <script>
-      var carritoCompras = [];
-      var carritoProductos = [];
-    </script>
+    var carritoCompras = [];
+    var carritoProductos = [];
+</script>

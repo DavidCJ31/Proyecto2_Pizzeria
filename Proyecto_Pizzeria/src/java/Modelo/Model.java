@@ -5,12 +5,14 @@
  */
 package Modelo;
 
+import clases.Comentario;
 import clases.Ingrediente;
 import clases.Orden;
 import clases.Pizza;
 import clases.Producto;
 import clases.Usuario;
 import coneccion.Conecion;
+import coneccion.DaoComentario;
 import coneccion.DaoIngrediente;
 import coneccion.DaoOrden;
 import coneccion.DaoPizza;
@@ -111,4 +113,11 @@ public class Model {
         return DaoOrden.obtenerUltimoRegistrado(conn);
     }
 
+    public static ArrayList<Comentario> ObtenerListaComentario() {
+        return DaoComentario.obtenerListaComentarios(conn);
+    }
+
+    public static boolean AgregarComentario(Comentario coment) {
+        return DaoComentario.insertarComentario(coment, conn);
+    }
 }

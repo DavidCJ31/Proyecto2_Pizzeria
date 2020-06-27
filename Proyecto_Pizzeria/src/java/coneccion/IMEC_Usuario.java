@@ -29,7 +29,7 @@ public enum IMEC_Usuario {
     LISTARPRODUCTOORDEN("SELECT orden, cantidad, producto FROM relacion_producto_orden WHERE orden=?; "),
     LISTARINGREDIENTESPIZZA("SELECT pizza, ingrediente FROM relacion_pizza_ingredientes WHERE pizza=?; "),
     LISTARINGREDIENTESADICIONALES("SELECT pizza, ingredientes, orden FROM adicionales WHERE pizza=? AND orden = ?; "),
-    INSERTARPIZZAORDEN("INSERT INTO relacion_pizza_orden(orden, pizza, cantidad, tamano) VALUES(?,?,?,?); "),
+    INSERTARPIZZAORDEN("INSERT INTO relacion_pizza_orden(orden, pizza, cantidad) VALUES(?,?,?); "),
     INSERTARPRODUCTOORDEN("INSERT INTO relacion_producto_orden(orden, cantidad, producto) VALUES(?,?,?); "),
     INSERTARINGREDIENTESADICIONALES("INSERT INTO adicionales(pizza, ingredientes, orden) VALUES(?,?,?); "),
     INSERTARORDEN("INSERT INTO orden(id, estado, usuario, formaPago) VALUES(?,?,?,?); "),
@@ -38,7 +38,12 @@ public enum IMEC_Usuario {
     LISTA_ORDENES_EN_PREPARACION("SELECT * FROM orden WHERE estado='En preparacion';"),
     ACTUALIZAR_ORDENES_EN_PREPARACION("UPDATE orden SET estado=? WHERE estado=?;"),
     ULTIMA_ORDEN("SELECT TOP 1 * FROM  orden ORDER BY id DESC;"),
-    MODIFICARORDEN("UPDATE  orden SET estado=? WHERE id=?;");
+    MODIFICARORDEN("UPDATE  orden SET estado=? WHERE id=?;"),
+    AGREGAR_COMENTARIO("INSERT INTO comentarios(usuario, descripcion) VALUES (?,?);"),
+    CONSULTAR_COMENTARIOS("SELECT * FROM comentarios;"),
+    AGREGAR_INGREDIENTE("INSERT INTO ingredientes(ID, nombre, precio) VALUES (?,?,?);"),
+    AGREGAR_PRODUCTO("INSERT INTO producto(ID, nombre, precio, descripcion) VALUES (?,?,?,?);");
+            
     
     IMEC_Usuario(String comando) {
         this.comando = comando;

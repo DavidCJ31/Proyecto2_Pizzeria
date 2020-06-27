@@ -20,7 +20,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Menu</title>		
         <%@include file="/Vistas/Head.jsp"%>  
-        <%@include file="/Vistas/Heder.jsp"%>  
+        <%@include file="/Vistas/Heder.jsp"%>
+        <%@include file="/Vistas/popUpAgregarComentario.jsp"%>
 
     </head>
     <body>

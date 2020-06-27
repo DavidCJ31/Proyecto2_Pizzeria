@@ -6,6 +6,7 @@
 package Servicios;
 
 import Modelo.Model;
+import clases.Comentario;
 import clases.Ingrediente;
 import clases.Orden;
 import clases.Pizza;
@@ -36,7 +37,7 @@ import com.google.gson.Gson;
  * @author metal
  */
 @MultipartConfig
-@WebServlet(name = "ServletUsuario", urlPatterns = {"/logIn", "/insertarOrden", "/Regisistrar", "/CrearPizza", "/EliminarPizza", "/ModificarUsuario"})
+@WebServlet(name = "ServletUsuario", urlPatterns = {"/logIn", "/insertarOrden", "/Regisistrar", "/CrearPizza", "/EliminarPizza", "/ModificarUsuario", "/Comentar"})
 public class ServletUsuario extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -52,6 +53,9 @@ public class ServletUsuario extends HttpServlet {
         }
         if (request.getServletPath().equals("/ModificarUsuario")) {
             this.modificarUsuario(request, response);
+        }
+        if (request.getServletPath().equals("/Comentar")) {
+            this.agregarComentario(request, response);
         }
     }
 
@@ -107,7 +111,7 @@ public class ServletUsuario extends HttpServlet {
         us.getListaOrdenes().add(ordenGuardar);
         ArrayList<Pizza> listaPi = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas");
         ArrayList<Producto> listProduct = (ArrayList<Producto>) request.getSession().getAttribute("listaProductos");
-        ordenGuardar.setIdOrden(Model.obtenerUltimoRegistrado()+1);
+        ordenGuardar.setIdOrden(Model.obtenerUltimoRegistrado() + 1);
         boolean insertado = Model.insertarOrdenDeUsuario(ordenGuardar, us, listaPi, listProduct);
         if (insertado) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/Menu.jsp");
@@ -141,7 +145,9 @@ public class ServletUsuario extends HttpServlet {
             } else {
                 Model.instance().actualizarOrdenesEnPreparacion();
                 ArrayList<Orden> listaOrden = Model.instance().ObtenerListaOrden();
+                ArrayList<Comentario> listaComentarios = Model.instance().ObtenerListaComentario();
                 request.getSession().setAttribute("listaOrden", listaOrden);
+                request.getSession().setAttribute("listaComentarios", listaComentarios);
                 RequestDispatcher dispatcher = request.getRequestDispatcher(
                         "/Vistas/VistaAdministrador.jsp");
                 dispatcher.forward(request, response);
@@ -243,5 +249,14 @@ public class ServletUsuario extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void agregarComentario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        Usuario us = (Usuario) request.getSession(true).getAttribute("Usuario");
+        String descripcion = request.getParameter("descripcionComentario");
+        Comentario coment = new Comentario(us.getId(), descripcion);
+        boolean ins = Model.instance().AgregarComentario(coment);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/Menu.jsp");
+        dispatcher.forward(request, response);
+    }
 
 }

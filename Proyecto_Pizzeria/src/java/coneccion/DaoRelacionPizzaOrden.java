@@ -62,7 +62,6 @@ public class DaoRelacionPizzaOrden {
             stm.setString(1, String.valueOf(guardarO.getIdOrden()));
             stm.setString(2, String.valueOf(pi.getPizzaID()));
             stm.setString(3, String.valueOf(pi.getCantidad()));
-            stm.setString(4, String.valueOf(pi.getTamanno()));
             stm.executeUpdate();
             return true;
         } catch (SQLException ex) {
