@@ -75,7 +75,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="insertarOrden">
+                    <form method="post" action="Vistas/Menu.jsp">
                         <div action="" id="PerfilTable">
                             <div class="modal-body jumbotron" id="modBody">
                                 <div class="text-center border border-light p-5 " >
@@ -146,7 +146,7 @@
                             <input name="CarritoPizzas" id="CarritoPizzas" style="display:none;">
                             <input name="CarritoProductos" id="CarritoProductos" style="display:none;" >
                             <button type="button" class="btn btn-danger"  data-dismiss="modal">Cerrar</button>
-                            <button type="button" onclick="guardaOrden()" class="btn btn-warning" >Aceptar</button>
+                            <button type="button" onclick="guardaOrden()" class="btn btn-warning">Aceptar</button>
                         </div>
                     </form>
                 </div>
@@ -304,9 +304,21 @@
         fetch(url, {
             method: 'POST',
             body: data
-        }).then((result) => {
-            return result.json();
-        });
+        }).then(limpiaC());
+    }
+
+    function limpiaC() {
+        for (var i = 0; i <= carritoProductos.length; i++) {
+            carritoProductos.pop()
+        }
+        for (var i = 0; i <= carritoCompras.length; i++) {
+            carritoCompras.pop()
+        }
+        actualizarTablaOrden();
+        actualizarNumeroCarrito();
+        document.forms[0].action = "Vistas/Menu.jsp";
+        document.forms[0].method = "post"; // "get"
+        document.forms[0].submit();
     }
 
     function salvarCarrito() {
