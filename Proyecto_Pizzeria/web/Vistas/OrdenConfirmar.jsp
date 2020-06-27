@@ -145,6 +145,7 @@
                             </div>
                             <input name="CarritoPizzas" id="CarritoPizzas" style="display:none;">
                             <input name="CarritoProductos" id="CarritoProductos" style="display:none;" >
+                            <input name="pagar" id="pagar" style="display:none;" >
                             <button type="button" class="btn btn-danger"  data-dismiss="modal">Cerrar</button>
                             <button type="button" onclick="guardaOrden()" class="btn btn-warning">Aceptar</button>
                         </div>
@@ -295,6 +296,10 @@
                     dato.append(e, f);
                 }
         );
+        p = document.getElementById("pagar");
+        g = 'pagando';
+        h = p.value;
+        dato.append(g, h);
         if (carritoCompras.length > 0 && carritoProductos.length > 0) {
             getJSON('insertarOrden', dato);
         }
@@ -394,11 +399,14 @@
     function checkPago() {
         checkEfectivo = document.getElementById("efectivo").checked;
         checkTarjeta = document.getElementById("tarjeta").checked;
+        p = document.getElementById("pagar")
         if (checkEfectivo === true) {
             document.getElementById("tarjeta").checked = false;
+            p.value = "efectivo";
         }
         if (checkTarjeta === true) {
             document.getElementById("efectivo").checked = false;
+            p.value = "tarjeta";
         }
 
     }

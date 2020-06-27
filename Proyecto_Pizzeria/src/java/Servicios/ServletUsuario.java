@@ -73,9 +73,7 @@ public class ServletUsuario extends HttpServlet {
         encoding = Optional.of(request.getCharacterEncoding());
         System.out.printf("request character encoding: '%s'%n", encoding.get());
         response.setContentType("application/json;charset=UTF-8");
-//        String carritoPZ = request.getParameter("CarritoPizzas");
-//        String carritoPD = request.getParameter("CarritoProductos");
-        String pago = "pagoEfectivo";
+        String pago = request.getParameter("pagando");
         ArrayList<Pizza> listaP = new ArrayList<>();
         ArrayList<Producto> listaPR = new ArrayList<>();
         int total = 0;
