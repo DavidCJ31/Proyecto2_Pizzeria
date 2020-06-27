@@ -8,13 +8,14 @@ import org.json.JSONObject;
 
 public class Orden {
 
-    public Orden(String fPago, String estado, int idOrden, ArrayList<Pizza> listaPizzas, ArrayList<Producto> listaProductos) {
+    public Orden(String fPago, String estado, int idOrden, ArrayList<Pizza> listaPizzas, ArrayList<Producto> listaProductos, int total) {
         this.fPago = fPago;
         this.fecha = new Date(Calendar.getInstance().getTime().getTime());
         this.estado = estado;
         this.idOrden = idOrden;
         this.listaPizzas = listaPizzas;
         this.listaProductos = listaProductos;
+        this.total = total;
     }
 
     public String getfPago() {
@@ -66,6 +67,15 @@ public class Orden {
         return listaProductos;
     }
 
+    public int getTotal() {
+        return total;
+    }
+
+    @XmlElement(name = "total")
+    public void setTotal(int total) {
+        this.total = total;
+    }
+    
     @XmlElement(name = "listaProductos")
     public void setListaProductos(ArrayList<Producto> listaProductos) {
         this.listaProductos = listaProductos;
@@ -78,6 +88,7 @@ public class Orden {
         this.listaPizzas = new ArrayList<>();
         this.listaProductos = new ArrayList<>();
         this.fPago = "";
+        this.total = 0;
     }
 
     public JSONObject toJSON() {
@@ -88,6 +99,7 @@ public class Orden {
         r.put("fPago", getfPago());
         r.put("listaPizzas", getListaPizzas());
         r.put("listaProductos", getListaProductos());
+        r.put("total", getTotal());
         return r;
     }
 
@@ -100,6 +112,7 @@ public class Orden {
     private Date fecha;
     private String estado;
     private int idOrden;
+    private int total;
     private ArrayList<Pizza> listaPizzas;
     private ArrayList<Producto> listaProductos;
 }

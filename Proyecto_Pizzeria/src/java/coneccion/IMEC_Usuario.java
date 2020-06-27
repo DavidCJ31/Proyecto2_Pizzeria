@@ -7,15 +7,12 @@ package coneccion;
 
 /**
  *
- * @author 50686
+ * @author david
  */
 public enum IMEC_Usuario {
-    // INSERTARFAVORITA("INSERT INTO favorita (cliente_id_cliente, cuenta_num_cuenta) VALUES (?, ?);"),
-    //  MODIFICAR("UPDATE cuenta SET saldo_final=? WHERE num_cuenta=?;"),
     EXCLUIRPIZZA("DELETE FROM pizza WHERE  ID=?;"),
     EXCLUIRPIZZAINGREDIENTE("DELETE FROM relacion_pizza_ingredientes WHERE  pizza=?;"),
     CONSULTAR("SELECT id, tipo, password, nombre, apellido1, apellido2, direccion, telefono FROM usuario WHERE password=? AND id=?;"),
-    // LISTARCUENTASCLIENTE("SELECT num_cuenta, tipo_cuenta_id_tipo_cuenta, cliente_id_cliente, moneda_nombre, fecha_creacion, limite_transferencia_diaria, activa, saldo_inicial, fecha_ultima_aplicacion, saldo_final FROM cuenta WHERE cliente_id_cliente=?; "),
     LISTAR("SELECT id, fecha, estado, usuario, formaPago FROM orden WHERE usuario=?; "),
     LISTARPIZZA("SELECT ID, nombre, precio FROM pizza WHERE ID=?; "),
     INSERTARPIZZA("INSERT INTO pizza(ID, nombre, precio, tamano) VALUES(?,?,?,?); "),
@@ -32,7 +29,7 @@ public enum IMEC_Usuario {
     INSERTARPIZZAORDEN("INSERT INTO relacion_pizza_orden(orden, pizza, cantidad) VALUES(?,?,?); "),
     INSERTARPRODUCTOORDEN("INSERT INTO relacion_producto_orden(orden, cantidad, producto) VALUES(?,?,?); "),
     INSERTARINGREDIENTESADICIONALES("INSERT INTO adicionales(pizza, ingredientes, orden) VALUES(?,?,?); "),
-    INSERTARORDEN("INSERT INTO orden(id, estado, usuario, formaPago) VALUES(?,?,?,?); "),
+    INSERTARORDEN("INSERT INTO orden(id, estado, usuario, formaPago,total) VALUES(?,?,?,?,?); "),
     INSERTARUSUARIO("INSERT INTO usuario(id, tipo, password, nombre, apellido1, apellido2, direccion, telefono) VALUES(?,?,?,?,?,?,?,?); "),
     MODIFICARUSUARIO("UPDATE  usuario SET password=?, direccion=?, telefono=? WHERE id=?;"),
     LISTA_ORDENES_EN_PREPARACION("SELECT * FROM orden WHERE estado='En preparacion';"),

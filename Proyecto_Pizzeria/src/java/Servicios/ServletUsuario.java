@@ -107,7 +107,7 @@ public class ServletUsuario extends HttpServlet {
             }
         }
         Usuario us = (Usuario) request.getSession(true).getAttribute("Usuario");
-        Orden ordenGuardar = new Orden(pago, "En Preparacion", us.getListaOrdenes().size() + 1, listaP, listaPR);
+        Orden ordenGuardar = new Orden(pago, "En Preparacion", us.getListaOrdenes().size() + 1, listaP, listaPR,100);
         us.getListaOrdenes().add(ordenGuardar);
         ArrayList<Pizza> listaPi = (ArrayList<Pizza>) request.getSession().getAttribute("listaPizzas");
         ArrayList<Producto> listProduct = (ArrayList<Producto>) request.getSession().getAttribute("listaProductos");

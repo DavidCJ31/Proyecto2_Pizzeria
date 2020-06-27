@@ -51,6 +51,7 @@ public class DaoOrden {
             c.setFecha(rs.getDate("fecha"));
             c.setIdOrden(rs.getInt("id"));
             c.setfPago(rs.getString("formaPago"));
+            c.setTotal(rs.getInt("total"));
         } catch (SQLException ex) {
 
         }
@@ -64,6 +65,7 @@ public class DaoOrden {
             stm.setString(2, String.valueOf(guardarO.getEstado()));
             stm.setString(3, String.valueOf(us.getId()));
             stm.setString(4, String.valueOf(guardarO.getfPago()));
+            stm.setInt(5, guardarO.getTotal());
             stm.executeUpdate();
             ArrayList<Pizza> pizzaO = guardarO.getListaPizzas();
             for (Pizza p : listaPizza) {
