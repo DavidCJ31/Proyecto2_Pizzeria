@@ -21,7 +21,7 @@
                         <h2 class="sr-only" style=" " >Login Form</h2>
                         <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
                         <div class="form-group"><input class="form-control" type="cedúla" name="cedula" placeholder="Cédula" value="123" /></div>
-                        <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password" value="admin" /></div>
+                        <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password" value="dvd" /></div>
                         <div  class="form-group">
                             <button class="btn btn-warning btn-block" type="submit">Log In</button>
                         </div>

@@ -119,7 +119,7 @@
                                         <div id="logBanco" class="input-group-prepend">
                                             <div class="input-group-text">
                                                 <div class="col">
-                                                    <input  type="checkbox" name="pagoEfectivo">
+                                                    <input  type="checkbox" name="pagoEfectivo" id="efectivo" onclick="checkPago()" >
                                                 </div>
                                                 <div class="col">
                                                     <label id="marg">Pago en Efectivo</label>
@@ -131,7 +131,7 @@
                                         <div id="logBanco" class="input-group-prepend">
                                             <div class="input-group-text">
                                                 <div class="col">
-                                                    <input  type="checkbox" name="pagoTarjeta">
+                                                    <input  type="checkbox" name="pagoTarjeta" id="tarjeta" onclick="checkPago()">
                                                 </div>
                                                 <div class="col">
                                                     <label id="marg">Pago con Trajeta</label>
@@ -377,5 +377,16 @@
                 }
         );
     }
-
+    
+    function checkPago(){
+        checkEfectivo = document.getElementById("efectivo").checked;
+        checkTarjeta = document.getElementById("tarjeta").checked;
+        if(checkEfectivo===true){
+            document.getElementById("tarjeta").checked = false;
+        }
+        if(checkTarjeta===true){
+            document.getElementById("efectivo").checked = false;
+        }
+        
+    }
 </script>
