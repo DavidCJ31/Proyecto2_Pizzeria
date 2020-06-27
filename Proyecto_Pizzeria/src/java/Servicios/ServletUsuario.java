@@ -95,7 +95,6 @@ public class ServletUsuario extends HttpServlet {
                     dato.setPrecio(obj3.getInt("precio"));
                     pizza.getListaIngredientes().add(dato);
                     j++;
-                    total = total + obj3.getInt("precio");
                 }
                 i++;
                 listaP.add(pizza);
