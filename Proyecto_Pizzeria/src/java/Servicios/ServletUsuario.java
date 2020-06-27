@@ -86,6 +86,7 @@ public class ServletUsuario extends HttpServlet {
                 JSONObject obj = new JSONObject(toUTF8String(request.getParameter("pizza" + i)));
                 Pizza pizza = new Pizza(obj.getString("nombre"), obj.getString("tamano"), obj.getInt("precio"), obj.getInt("id"));
                 int j = 0;
+                total = total + pizza.getPrecio();
                 while (request.getParameter("ingrediente" + j + "pizza" + i) != null) {
                     JSONObject obj3 = new JSONObject(toUTF8String(request.getParameter("ingrediente" + j + "pizza" + i)));
                     Ingrediente dato = new Ingrediente();
@@ -93,8 +94,8 @@ public class ServletUsuario extends HttpServlet {
                     dato.setNombre(obj3.getString("nombre"));
                     dato.setPrecio(obj3.getInt("precio"));
                     pizza.getListaIngredientes().add(dato);
-                    total = total + pizza.getPrecio();
                     j++;
+                    total = total + obj3.getInt("precio");
                 }
                 i++;
                 listaP.add(pizza);
