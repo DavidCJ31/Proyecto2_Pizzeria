@@ -40,8 +40,50 @@ function modificarPizza(IdPizza) {
     var precioPizza = document.getElementById(IdPizza + "-precioPizza").innerText;
 
     document.getElementById("inputIdPizza").value = idPizza;
-    document.getElementById("inputIdPizza2").setAttribute('value',idPizza);
+    document.getElementById("inputIdPizza2").setAttribute('value', idPizza);
     document.getElementById("inputNombrePizza").value = nombrePizza;
     document.getElementById("inputTamanoPizza").value = tamanoPizza;
     document.getElementById("inputPrecioPizza").value = precioPizza;
+}
+
+var cant = 0;
+//var start_date = document.getElementById("start-date").value;
+//var end_date = document.getElementById("end-date").value;
+//
+//var table = document.getElementById("tablaOrdenesEntregadas").tBodies[0];
+
+function ConsultarOrdenesEntregadas() {
+    var min = $('#start-date').val();
+    var max = $('#end-date').val();
+    if (cant === 0) {
+        document.getElementById("tablaOrdenesEntregadas").removeAttribute("style");
+
+        // Set up your table
+        table = $('#tablaOrdenesEntregadas').DataTable({
+            paging: false,
+            searching: false,
+            //ordering: false,
+            info: false
+        });
+        cant = 1;
+// Extend dataTables search
+        $.fn.dataTable.ext.search.push(
+                function (settings, data, dataIndex) {
+
+
+                    var createdAt = data[1] || 0; // Our date column in the table
+
+                    if (
+                            (min == "" || max == "")
+                            ||
+                            (moment(createdAt).isSameOrAfter(min) && moment(createdAt).isSameOrBefore(max))
+                            )
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+        );
+    }
+    table.draw();
 }
