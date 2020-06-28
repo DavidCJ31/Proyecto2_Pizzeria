@@ -42,8 +42,8 @@ public enum IMEC_Usuario {
     AGREGAR_COMENTARIO("INSERT INTO comentarios(usuario, descripcion) VALUES (?,?);"),
     CONSULTAR_COMENTARIOS("SELECT * FROM comentarios;"),
     AGREGAR_INGREDIENTE("INSERT INTO ingredientes(ID, nombre, precio) VALUES (?,?,?);"),
-    AGREGAR_PRODUCTO("INSERT INTO producto(ID, nombre, precio, descripcion) VALUES (?,?,?,?);");
-            
+    AGREGAR_PRODUCTO("INSERT INTO producto(ID, nombre, precio, descripcion) VALUES (?,?,?,?);"),
+    LISTA_ORDENES_ENTREGADAS("SELECT * FROM orden WHERE estado='Entregado';");
     
     IMEC_Usuario(String comando) {
         this.comando = comando;

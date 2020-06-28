@@ -21,3 +21,6 @@
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="assets/js/bs-animation.js"></script> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+<script src="../assets/js/moment.min.js" type="text/javascript"></script>
+<script src="../assets/js/jquery-3.5.1.js" type="text/javascript"></script>
+<script src="../assets/js/jquery.dataTables.min.js" type="text/javascript"></script>

@@ -199,7 +199,7 @@ public class DaoOrden {
         }
     }
 
-        public static int obtenerUltimoRegistrado(Connection cnx) {
+    public static int obtenerUltimoRegistrado(Connection cnx) {
         int i = 0;
         try (PreparedStatement stm = cnx.prepareStatement(IMEC_Usuario.LISTA_ORDENES_EN_PREPARACION.obtenerComando());) {
             stm.clearParameters();
@@ -213,5 +213,25 @@ public class DaoOrden {
         }
         return i;
     }
-    
+
+    public static ArrayList<Orden> obtenerListaOrdenesEntregadas(Connection cnx) {
+        ArrayList<Orden> r = new ArrayList<>();
+        try (PreparedStatement stm = cnx.prepareStatement(IMEC_Usuario.LISTA_ORDENES_ENTREGADAS.obtenerComando());) {
+            stm.clearParameters();
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    r.add(getOrden(rs, cnx));
+                }
+                for (int i = 0; i < r.size(); i++) {
+                    Orden o = r.get(i);
+                    o.setListaPizzas(DaoRelacionPizzaOrden.obtenerPizzaOrden(String.valueOf(o.getIdOrden()), cnx));
+                    o.setListaProductos(DaoRelacionProductoOrden.obtenerProductoOrden(String.valueOf(o.getIdOrden()), cnx));
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return r;
+    }
+
 }

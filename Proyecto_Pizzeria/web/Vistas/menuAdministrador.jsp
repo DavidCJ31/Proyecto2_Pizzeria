@@ -22,6 +22,13 @@
             </div>
         </div>
         <div id="hederButton">
+            <form action="Vistas/VistaAdministrador.jsp">
+                <button  type="submit" class="btn btn-secondary" >
+                    Ordenes
+                </button>
+            </form>
+        </div>
+        <div id="hederButton">
             <form action="Vistas/ModificarPizzas.jsp">
                 <button  type="submit" class="btn btn-secondary" >
                     Modificar Pizzas

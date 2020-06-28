@@ -120,4 +120,7 @@ public class Model {
     public static boolean AgregarComentario(Comentario coment) {
         return DaoComentario.insertarComentario(coment, conn);
     }
+     public static ArrayList<Orden> obtenerListaOrdenesEntregadas() {
+        return DaoOrden.obtenerListaOrdenesEntregadas(conn);
+    }
 }

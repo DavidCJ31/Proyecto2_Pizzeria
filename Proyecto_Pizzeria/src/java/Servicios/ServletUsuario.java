@@ -153,6 +153,8 @@ public class ServletUsuario extends HttpServlet {
                 Model.instance().actualizarOrdenesEnPreparacion();
                 ArrayList<Orden> listaOrden = Model.instance().ObtenerListaOrden();
                 ArrayList<Comentario> listaComentarios = Model.instance().ObtenerListaComentario();
+                ArrayList<Orden> listaOrdenEntregadas = Model.instance().obtenerListaOrdenesEntregadas();
+                request.getSession().setAttribute("listaOrdenEntregadas", listaOrdenEntregadas);
                 request.getSession().setAttribute("listaOrden", listaOrden);
                 request.getSession().setAttribute("listaComentarios", listaComentarios);
                 RequestDispatcher dispatcher = request.getRequestDispatcher(
