@@ -1,8 +1,12 @@
 <%-- 
-    Document   : popUpRegistrarUsuario
-    Created on : 25/03/2020, 05:00:25 PM
-    Author     : Chris
---%>
+ 
+// // EIF209 - Programación 4 ? Proyecto #2 
+// Junio 2020 
+// // Autores: 
+//  - 116670651 Steven Sandino Solórzano
+//  -  
+//  - 
+// // --%> 
 
 <div class="container container-fluid" id="containerCrearEncuesta">
     <form action="Regisistrar" method="post">

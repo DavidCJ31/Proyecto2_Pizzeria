@@ -1,8 +1,12 @@
 <%-- 
-    Document   : Menu
-    Created on : Jun 13, 2020, 5:12:41 PM
-    Author     : metal
---%>
+ 
+// // EIF209 - Programación 4 – Proyecto #2 
+// Junio 2020 
+// // Autores: 
+//  - 116670651 Steven Sandino Solórzano
+//  -  
+//  - 
+// // --%> 
 
 <%@page import="clases.Producto"%>
 <%@page import="org.json.JSONArray"%>

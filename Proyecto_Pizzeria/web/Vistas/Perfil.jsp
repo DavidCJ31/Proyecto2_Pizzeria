@@ -1,8 +1,12 @@
 <%-- 
-    Document   : Perfil
-    Created on : 18/06/2020, 02:38:50 PM
-    Author     : david
---%>
+ 
+// // EIF209 - Programación 4 – Proyecto #2 
+// Junio 2020 
+// // Autores: 
+//  - 116670651 Steven Sandino Solórzano
+//  -  
+//  - 
+// // --%> 
 
 <%@page import="clases.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

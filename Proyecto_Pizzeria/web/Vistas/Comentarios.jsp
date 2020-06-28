@@ -1,3 +1,15 @@
+<%-- 
+ 
+// // EIF209 - Programación 4 – Proyecto #2 
+// Junio 2020 
+// // Autores: 
+//  - 116670651 Steven Sandino Solórzano
+//  -  
+//  - 
+// // --%> 
+
+
+
 <%@page import="clases.Comentario"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="clases.Usuario"%>

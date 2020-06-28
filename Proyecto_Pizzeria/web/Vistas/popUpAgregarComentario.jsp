@@ -1,3 +1,12 @@
+<%-- 
+ 
+// // EIF209 - Programación 4 ? Proyecto #2 
+// Junio 2020 
+// // Autores: 
+//  - 116670651 Steven Sandino Solórzano
+//  -  
+//  - 
+// // --%> 
 <div class="container container-fluid" id="containerCrearEncuesta">
     <form action="Comentar" method="post" id="FormComentario">
         <div class="modal fade" id="registrarComentario" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
