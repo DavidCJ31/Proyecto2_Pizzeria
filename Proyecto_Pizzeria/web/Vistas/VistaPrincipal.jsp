@@ -4,7 +4,7 @@
 // Junio 2020 
 // // Autores: 
 //  - 116670651 Steven Sandino Solórzano
-//  -  
+//  - 207600154 David Cordero Jimenez
 //  - 
 // // --%> 
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
