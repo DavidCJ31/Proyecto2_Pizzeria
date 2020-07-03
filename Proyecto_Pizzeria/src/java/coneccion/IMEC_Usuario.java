@@ -25,7 +25,7 @@ public enum IMEC_Usuario {
     LISTARPRODUCTO("SELECT ID, nombre, precio, descripcion FROM producto; "),
     CONSULTARING("SELECT ID, nombre, precio FROM ingredientes WHERE ID=?; "),
     LISTARING("SELECT ID, nombre, precio FROM ingredientes;"),
-    LISTARPIZZAORDEN("SELECT orden, pizza, cantidad, tamano FROM relacion_pizza_orden WHERE orden=?; "),
+    LISTARPIZZAORDEN("SELECT orden, pizza, cantidad FROM relacion_pizza_orden WHERE orden=?; "),
     LISTARPRODUCTOORDEN("SELECT orden, cantidad, producto FROM relacion_producto_orden WHERE orden=?; "),
     LISTARINGREDIENTESPIZZA("SELECT pizza, ingrediente FROM relacion_pizza_ingredientes WHERE pizza=?; "),
     LISTARINGREDIENTESADICIONALES("SELECT pizza, ingredientes, orden FROM adicionales WHERE pizza=? AND orden = ?; "),

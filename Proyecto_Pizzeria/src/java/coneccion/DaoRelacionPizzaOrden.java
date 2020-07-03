@@ -56,7 +56,7 @@ public class DaoRelacionPizzaOrden {
         try {
             c.setCantidad(rs.getInt("cantidad"));
             c.setPizzaID(rs.getInt("pizza"));
-            c.setTamanno("tamano");
+            c.setTamanno("");
         } catch (SQLException ex) {
 
         }
